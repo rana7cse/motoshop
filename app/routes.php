@@ -32,11 +32,6 @@ Route::get('/product/{id}','ProductController@show');
 Route::post('/product/update','ProductController@update');
 Route::get('/product/delete/{id}','ProductController@destroy');
 
-/*
- * Eshop Product Routes Ends
- *
- * */
-
 /* ***
  * Eshop Inventory Routes Starts
  *
@@ -52,10 +47,29 @@ Route::get('/inventory/{id}','InventoryController@show');
 Route::post('/inventory/update','InventoryController@update');
 Route::get('/inventory/delete/{id}','InventoryController@destroy');
 
-/*
- * Eshop Inventory Routes Ends
+/* ***
+ * Eshop Customers Routes Starts
  *
- * */
+ */
+
+Route::get('/customars',function(){
+	return View::make('customars.index');
+});
+
+Route::get('/customar_all',"CustomarController@index");
+Route::post('/customar_add',"CustomarController@create");
+Route::get('/customer/{id}',"CustomarController@show");
+Route::post('/customar/update',"CustomarController@update");
+Route::get('/customer/del/{id}',"CustomarController@destroy");
+
+/* ***
+ * Eshop Supplier Routes Starts
+ *
+ */
+
+Route::get('suppliers',function(){
+	return View::make('supplier.index');
+});
 
 //Utility Route;
 

@@ -115,7 +115,12 @@ class InventoryController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$del = Inventory::find($id)->delete();
+		if($del){
+			echo "Your Item Deleted";
+		} else {
+			echo "Not Found or Already Deleted";
+		}
 	}
 
 

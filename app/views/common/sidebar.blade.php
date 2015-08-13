@@ -40,10 +40,8 @@
                 <div class="collapsible-header waves-effect"><i class="fa fa-user-secret"></i> People</div>
                 <div class="collapsible-body">
                     <div class="collection">
-                        <a href="#!" class="collection-item">Add Customer<span class="badge">1</span></a>
-                        <a href="#!" class="collection-item">Manage Customer<span class="new badge">4</span></a>
-                        <a href="#!" class="collection-item">Add Supplier</a>
-                        <a href="#!" class="collection-item">Manage Supplier</a>
+                        <a href="{{url('/customars')}}" class="collection-item">Manage Customer<span class="new badge">+</span></a>
+                        <a href="{{url('/suppliers')}}" class="collection-item">Manage Suppliers<span class="new badge">+</span></a>
                     </div>
                 </div>
             </li>

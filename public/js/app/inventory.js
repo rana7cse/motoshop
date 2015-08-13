@@ -47,6 +47,19 @@ function inventoryEdit(id){
     })
 }
 
+function inventoryDel(id){
+    var id = $(id).attr('data-product-id');
+    Materialize.toast(
+        "Do you wanted to delete ? <a href='javascript:void(0)' class='is_delete' onclick='inventoryDeleteConfirm("+id+")'>Yes</a>",
+        2000);
+}
+
+function inventoryDeleteConfirm(id){
+    $.get('/inventory/delete/'+id,function(e){
+        Materialize.toast(e,2000);
+    });
+}
+
 
 $(function(){
     /* * Showing On all Tables*/
@@ -54,7 +67,7 @@ $(function(){
     $('#tableRefreach').click(function(){
         callDataTable();
         Materialize.toast('Table Reloaded ! Thanks :)',2000);
-    })
+    });
 
     /*Add Product On Your Inventory*/
     $('#btn_stock_in').click(function(){
