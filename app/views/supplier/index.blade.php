@@ -2,106 +2,127 @@
 @section('page_body')
     <div class="main-page__body">
         <div class="title">
-            <h2>Manage Your Customars</h2>
+            <h2 class="pull-left">Manage Your Suppliers</h2>
+            <button class="btn btn-add pull-right waves-effect waves-light" id="show_newSupplier">New Suppliers</button>
+            <div class="clearfix"></div>
         </div>
         <div class="sectionX product_start">
             <div class="row">
                 <div class="col s12">
-                    <div class="sec-product" ng-controller="CatagoryController">
-                        <ul class="tabs">
-                            <li class="tab">
-                                <a class="active" href="#addProduct">New Product</a>
-                            </li>
-                            <li class="tab">
-                                <a href="#listProduct">All Product</a>
-                            </li>
-                        </ul>
-                        <div id="addProduct" class="tab_panel">
-                            <div class="title">Please Add New Product</div>
-                            <div class="form-area row">
-                                <form action="javascript:void(0)" method="post" id="newProductAdd">
-                                    <div class="col s6">
-                                        <div class="input-field">
-                                            <input id="pro_name" name="pro_name" type="text" class="validate">
-                                            <label for="first_name">Product Name</label>
-                                        </div>
-                                        <div class="input-field">
-                                            <input name="pro_visible" class="with-gap" value="1" type="radio" id="test1" checked/>
-                                            <label for="test1">Active</label>
-                                            <input name="pro_visible" class="with-gap" value="0" type="radio" id="test2" />
-                                            <label for="test2">Inactive</label>
-                                        </div>
-                                    </div>
-                                    <div class=" col s6">
-                                        <div class="product_image_section">
-                                            <div class="product_image_box">
-                                                <div class="product_image_title">
-                                                    Upload Product Image
-                                                </div>
-                                                <div class="product_image">
-                                                    <img src="{{asset('bower_components/rocket3-256/index.png')}}" alt="" id="show_image_upload">
-                                                    <input type="file" name="product_image" id="product_image">
-                                                    <input type="hidden" name="pro_img" id="image_name">
-                                                </div>
-                                                <div class="progress">
-                                                    <div class="determinate" style="width: 40%" id="image_progress"></div>
-                                                </div>
-                                                <a class="btn btn-block product_image_upload" id="doImageUpload">Upload Image</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="input_field_button">
-                                        <a class="btn green" id="submitProductCrt">Add Product</a>
-                                    </div>
-                                </form>
-                            </div>
+                    <div class="page-section">
+                        <div class="page-section_header">
+                            <div class="title">View, Edit and Delete Suppliers</div>
                         </div>
-                        <div id="listProduct" class="tab_panel">
-                            <div class="title">Lists of all products here</div>
-                            <table class="bordered striped" id="proTable">
+                        <div class="page-section_body">
+                            <table class="striped" id="table_listSupplier">
                                 <thead>
                                 <tr>
-                                    <th data-field="id" width="50px">ID</th>
-                                    <th data-field="name">Name</th>
-                                    <th data-field="price">Visibility</th>
-                                    <th>img</th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>phone</th>
+                                    <th>Email</th>
+                                    <th>MGM</th>
+                                    <th>Date</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                             </table>
-
-                            <div id="EditProductDialog" class="modal bottom-sheet">
-                                <div class="modal-content">
-                                    <div class="model_title">Update Your Product Info.</div>
+                        </div>
+                        <div class="page-section_footer">
+                            {{--Customar Edit Modal--}}
+                            <div id="modal_editSupplier" class="modal bottom-sheet">
+                                <div class="modal-content" style="padding: 10px 24px 0 10px">
+                                    <div class="model_title">Update Your Customar Info.</div>
                                     <div class="modal_bodu">
                                         <div class="row">
-                                            <form action="javascript:void(0)" id="ProductEditFrom">
-                                                <div class="col s4">
-                                                    <label for="editProName">Product Name</label>
-                                                    <input id="editProName" name="editProName" type="text" class="validate">
+                                            <form action="javascript:void(0)" id="form_updateSupplier">
+                                                <input type="hidden" name="rowId" id="editSupRowId">
+                                                <div class="input-field col s3">
+                                                    <input id="editSupName" placeholder="" type="text" name="editSupName">
+                                                    <label for="cusFirstName">Supplier Name :</label>
                                                 </div>
-                                                <div class="col s4">
-                                                    <label>Product Visibility</label>
-                                                    <select class="browser-default" name="editVisiblility" id="editVisiblility">
-                                                        <option value="">Product Activity</option>
-                                                        <option value="0">Inactive</option>
-                                                        <option value="1">Active</option>
-                                                    </select>
+                                                <div class="input-field col s3">
+                                                    <input id="editSupType" placeholder="" type="text" name="editSupType">
+                                                    <label for="cusLastName">Supplier Type</label>
                                                 </div>
-                                                <input type="hidden" name="editProductId" id="editProductId">
-                                                <div class="col s4">
-                                                    <button type="submit" id="editProductSubmit" class="btn btn-flat" style="margin-top: 25px;">Update Product</button>
+                                                <div class="input-field col s6">
+                                                    <input id="editSupAdd" name="editSupAdd" placeholder="" type="text"/>
+                                                    <label for="eng_no">Address :</label>
+                                                </div>
+                                                <div class="input-field col s3">
+                                                    <input id="editSupEmail" type="text" name="editSupEmail" placeholder="">
+                                                    <label for="eng_no">Email Address :</label>
+                                                </div>
+                                                <div class="input-field col s3">
+                                                    <input id="editSupPhone" type="text" name="editSupPhone" placeholder="">
+                                                    <label for="eng_no">Phone/Mobile No :</label>
+                                                </div>
+                                                <div class="input-field col s3">
+                                                    <input id="editSupPhone2" type="text" name="editSupPhone2" placeholder="">
+                                                    <label for="eng_no">Phone2/Mobile2 No :</label>
+                                                </div>
+                                                <div class="input-field col s3">
+                                                    <input id="editSupMgm" type="text" name="editSupMgm" placeholder="">
+                                                    <label for="eng_no">Manager/Any :</label>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="javascript:void(0)" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                                    <a href="javascript:void(0)" class="btn waves-effect waves-green btn-flat btn-update" id="btn_updateSupplier">Update</a>
+                                    <a href="javascript:void(0)" class=" modal-action modal-close waves-effect waves-green btn-flat" style="margin-right: 10px">Close</a>
                                 </div>
                             </div>
+                            {{-- ENDS--}}
 
+                            {{--Customar ADD Modal Here--}}
+                            <div id="modal_newSupplier" class="modal modal_insertion">
+                                <div class="modal_header">
+                                    <h3 class="modal_title pull-left">Please add a new supplier here. </h3>
+                                    <a href="javascript:void(0)" class=" modal-action modal-close pull-right"><i class="fa fa-times"></i></a>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="modal_body">
+                                    <div class="insert_form row">
+                                        <form action="javascript:void(0)" id="form_newSupplier">
+                                            <div class="input-field col s6">
+                                                <input placeholder="Enter supplier name" id="newSupName" type="text" name="newSupName">
+                                                <label for="cusFirstName">Supplier Name :</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input placeholder="Enter supplier type" id="newSupType" type="text" name="newSupType">
+                                                <label for="cusLastName">Supplier Type</label>
+                                            </div>
+                                            <div class="input-field col s12">
+                                                <textarea placeholder="Enter supplier address" id="newSupAdd" name="newSupAdd" class="materialize-textarea"></textarea>
+                                                <label for="eng_no">Address :</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input placeholder="supplier@email.com" id="newSupEmail" type="text" name="newSupEmail">
+                                                <label for="eng_no">Email Address :</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input placeholder="Phone/Mobile No" id="newSupPhone" type="text" name="newSupPhone">
+                                                <label for="eng_no">Phone/Mobile No :</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input placeholder="Phone/Mobile No" id="newSupPhone2" type="text" name="newSupPhone2">
+                                                <label for="eng_no">Phone2/Mobile2 No :</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input placeholder="Referance name" id="newSupMgm" type="text" name="newSupMgm">
+                                                <label for="eng_no">Manager/Any :</label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal_footer">
+                                    <div class="btn btn-flat reset">Reset</div>
+                                    <div class="btn btn-flat submit" id="btn_newSupplier">Submit</div>
+                                </div>
+                            </div>
+                            {{--ENds--}}
                         </div>
                     </div>
                 </div>

@@ -19,7 +19,8 @@ class CustomarController extends \BaseController {
 				$data->email,
 				$data->address,
 				"{$data->created_at}",
-				"action");
+				"action"
+			);
 		}
 		return json_encode(array("data"=>$op));
 	}

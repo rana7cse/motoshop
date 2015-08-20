@@ -1,30 +1,16 @@
 <?php
+// Application Routes ......................
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
-
+// --- Shop Home Initialize -------
 Route::get('/', function()
 {
 	return View::make('store');
 });
 
-/* ***
- * Eshop Product Routes Starts
- *
- */
-
+// ------ Product Routes Here --------
 Route::get('/product/manage',function(){
 	return View::make('product.index');
 });
-
 Route::get('/product','ProductController@index');
 Route::post('/product/create','ProductController@create');
 Route::get('/product/edit/{id}','ProductController@edit');
@@ -32,48 +18,59 @@ Route::get('/product/{id}','ProductController@show');
 Route::post('/product/update','ProductController@update');
 Route::get('/product/delete/{id}','ProductController@destroy');
 
-/* ***
- * Eshop Inventory Routes Starts
- *
- */
-
-Route::get('/inventory',function(){
-	return View::make('inventory.index');
-});
-
-Route::get('/inventory/all','InventoryController@index');
-Route::post('/inventory/create','InventoryController@create');
-Route::get('/inventory/{id}','InventoryController@show');
-Route::post('/inventory/update','InventoryController@update');
-Route::get('/inventory/delete/{id}','InventoryController@destroy');
-
-/* ***
- * Eshop Customers Routes Starts
- *
- */
-
+// --------- Customer Route ----------
 Route::get('/customars',function(){
 	return View::make('customars.index');
 });
-
 Route::get('/customar_all',"CustomarController@index");
 Route::post('/customar_add',"CustomarController@create");
 Route::get('/customer/{id}',"CustomarController@show");
 Route::post('/customar/update',"CustomarController@update");
 Route::get('/customer/del/{id}',"CustomarController@destroy");
 
-/* ***
- * Eshop Supplier Routes Starts
- *
- */
-
+// --------- Supplier Route ----------
 Route::get('suppliers',function(){
 	return View::make('supplier.index');
 });
+Route::get('/supplier/all',"SupplierController@index");
+Route::post('/supplier/add',"SupplierController@create");
+Route::get('/supplier/{id}',"SupplierController@show");
+Route::post('/supplier/update',"SupplierController@update");
+Route::get('/supplier/del/{id}',"SupplierController@destroy");
 
-//Utility Route;
+// --------- Inventory Route ----------
+Route::get('/inventory',function(){
+	return View::make('inventory.index');
+});
+Route::get('/inventory/all','InventoryController@index');
+Route::post('/inventory/create','InventoryController@create');
+Route::get('/inventory/{id}','InventoryController@show');
+Route::post('/inventory/update','InventoryController@update');
+Route::get('/inventory/delete/{id}','InventoryController@destroy');
 
-Route::post('/product/image_upload',function(){
+// --------- ORDER Transection Route ----------
+Route::get('/order',function(){
+	$status = array(
+		'totalBilled' => DB::table('pro_buy_info')->sum('ammount'),
+		'totalPay'  => DB::table('pro_buy_info')->sum('pay'),
+		'totalDue' => DB::table('pro_buy_info')->sum('due')
+	);
+	return View::make('transection.order',compact("status"));
+});
+Route::get('/order/all','OrderController@index');
+Route::post('/order/make','OrderController@create');
+Route::get('/order/{id}','OrderController@show');
+Route::post('/order/pay','OrderController@orderPay');
+Route::get('/order/del/{id}','OrderController@destroy');
+
+//----------- ORDER PAYMENT ROUTE -----------
+Route::get('/payment',function(){
+	return View::make('transection.supPay');
+});
+
+// --------- Others Route ----------
+
+/*Route::post('/product/image_upload',function(){
 	if(Input::hasFile('my_image')){
 		$filename = Input::file('my_image')->getClientOriginalName();
 		$extension = Input::file('my_image')->getClientOriginalExtension();
@@ -86,4 +83,4 @@ Route::post('/product/image_upload',function(){
 			echo $e->getMessage();
 		}
 	}
-});
+});*/
