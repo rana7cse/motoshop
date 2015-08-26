@@ -74,11 +74,17 @@ Route::get('/payment',function(){
 Route::get('/payment/all','OrderController@allPayment');
 
 //------- Sell Product-------------
+
 Route::get('/sell',function(){
 	return View::make('sell.index');
 });
+
+Route::get('/sell/report',function(){
+	return View::make('sell.report');
+});
+
 Route::post('/sell/make','SellController@create');
-// Route::get();
+Route::get('/sell/{to}/{form}','SellController@index');
 // Route::get();
 // Route::get();
 

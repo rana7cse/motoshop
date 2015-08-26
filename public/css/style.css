@@ -634,4 +634,14 @@ button.btn_sell {
         right: 0;
         top: 0; }
 
+.sell_report {
+  background: #fff; }
+  .sell_report .header_filer {
+    margin: 10px 0;
+    border-bottom: 1px solid #ECEBEB; }
+  .sell_report .sell_report_table {
+    padding: 0 10px;
+    margin-bottom: 20px;
+    padding-bottom: 10px; }
+
 /*# sourceMappingURL=style.css.map */

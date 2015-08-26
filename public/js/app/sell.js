@@ -1,9 +1,8 @@
 var sellX = {
     customar : 0,
     product : 0,
-    pay : false,
-    bill : false,
     isDue : false,
+    payment_info : 0,
 
     setCustomar : function(input){
         this.customar = input;
@@ -104,28 +103,31 @@ $(function(){
 
     //---- Make Payment ---------
     $('#sell_payment').click(function(){
-        //$('#modal_product_sell').openModal();
-       if(sellX.getCustomar() == 0){
-           Materialize.toast('Please Select Customar',2000);
-       } else if(sellX.getProduct() == 0){
-           Materialize.toast('Please Select Product',2000);
-       } else {
-            $('#modal_product_sell').openModal();
-           var customar = sellX.getCustomar();
-           var product = sellX.getProduct();
-           $('#payCusName').html(customar.first_name+" "+customar.last_name);
-           $('#payCusPhone').html(customar.phone);
-           $('#payCusId').html(customar.id);
-           $('#payCusEmail').html(customar.email);
+        if(sellX.payment_info == 0){
+            if(sellX.getCustomar() == 0){
+                Materialize.toast('Please Select Customar',2000);
+            } else if(sellX.getProduct() == 0){
+                Materialize.toast('Please Select Product',2000);
+            } else {
+                $('#modal_product_sell').openModal();
+                var customar = sellX.getCustomar();
+                var product = sellX.getProduct();
+                $('#payCusName').html(customar.first_name+" "+customar.last_name);
+                $('#payCusPhone').html(customar.phone);
+                $('#payCusId').html(customar.id);
+                $('#payCusEmail').html(customar.email);
 
-           $('#payProName').html(product.product_name);
-           $('#payProEngNo').html(product.eng_no);
-           $('#payProChsNo').html(product.chs_no);
-           $('#payProRate').html(product.sell_rate + "tk");
-           $('#frm_payable').val(product.sell_rate);
-           $('#frm_ammount,#frm_due,#frm_due,#frm_inst_rate').val(0);
-           $('#frm_inst_no').val(1);
-       }
+                $('#payProName').html(product.product_name);
+                $('#payProEngNo').html(product.eng_no);
+                $('#payProChsNo').html(product.chs_no);
+                $('#payProRate').html(product.sell_rate + "tk");
+                $('#frm_payable').val(product.sell_rate);
+                $('#frm_ammount,#frm_due,#frm_due,#frm_inst_rate').val(0);
+                $('#frm_inst_no').val(1);
+            }
+        } else {
+            Materialize.toast('You already Paid Out !',3000);
+        }
     });
 
     $('#frm_ammount').keyup(function(){
@@ -171,13 +173,37 @@ $(function(){
             var data = $('#form_sell_payment').serializeObject();
             data['cus_id'] = sellX.customar.id;
             data['inv_id'] = sellX.product.id;
+            data['is_due'] = sellX.isDue;
             $.post('/sell/make',data,function(e){
-                console.log(e);
+                if(e.data == 0 && e.status == 0){
+                    Materialize.toast(e.massage,2000);
+                } else if(e.data != 0 && e.status == 1){
+                    $('#modal_product_sell').closeModal();
+                    Materialize.toast(e.massage,2000);
+                    sellX.payment_info = e.data;
+                    $('#table_product_avail').dataTable({
+                        "ajax": '/inventory/prosearch/'+$('#search_product_name').val(),
+                        "bDestroy": true,
+                        "bPaginate": false,
+                        "iDisplayLength": 200,
+                        "fnRowCallback": function(e,m,j){
+                            $('td:eq(5)',e).html(
+                                "<a href='javascript:void(0)' class='data_pro_del' onclick='productAdd("+m[0]+")'>Select</a>"
+                            );
+                        }
+                    });
+                } else {
+                    Materialize.toast('Something Wrong Please Contact Web Master',3000);
+                }
             });
+        } else {
+            Materialize.toast('You Already Paid Out',2000);
+            console.log(e);
         }
     });
 });
 
+//product added from product list;
 function productAdd(id){
     $.get('/inventory/prosel/'+id,function(e){
         var pro = e[0];

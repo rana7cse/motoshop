@@ -12,6 +12,7 @@
                     <div class="collection">
                         <a href="{{url('/sell')}}" class="collection-item">Sell</a>
                         <a href="{{url('/inventory')}}" class="collection-item">Buy</a>
+                        <a href="{{url('/sell/report')}}" class="collection-item">Sell Report</a>
                     </div>
                 </div>
             </li>
