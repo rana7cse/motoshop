@@ -24,7 +24,8 @@ function callDataTable(){
                 "<a href='javascript:void(0)' class='data_pro_edit' onclick='inventoryEdit(this)' data-product-id='"+m[0]+"'>Edit</a>" +
                 "<a href='javascript:void(0)' class='data_pro_del' onclick='inventoryDel(this)' data-product-id='"+m[0]+"'>Delete</a>"
             );
-        }
+        },
+        "iDisplayLength": 100
     });
 }
 

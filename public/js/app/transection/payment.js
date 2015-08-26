@@ -1,3 +1,5 @@
-/**
- * Created by rana7cse on 8/20/2015.
- */
+$(function(){
+   $('#table_listPayment').dataTable({
+      'ajax' : 'payment/all'
+   });
+});

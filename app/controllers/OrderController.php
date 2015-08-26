@@ -68,17 +68,6 @@ class OrderController extends \BaseController {
 
 
 	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-
-	/**
 	 * Display the specified resource.
 	 *
 	 * @param  int  $id
@@ -146,6 +135,18 @@ class OrderController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
+	public function allPayment(){
+		$all = DB::table('supplier_payment')
+			->join('supplier','supplier_payment.supplier_id','=','supplier.id')
+			->select('supplier_payment.id','supplier.supp_name','supplier_payment.order_id','supplier_payment.ammount','supplier_payment.date')->get();
+		$op = [];
+		foreach($all as $data){
+			$op[] = array($data->id,$data->supp_name,$data->order_id,$data->ammount,$data->date,"Action");
+		}
+		return array('data'=>$op);
+	}
+
+
 	public function destroy($id)
 	{
 		$del = Order::find($id)->delete();

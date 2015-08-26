@@ -1,7 +1,9 @@
 <?php
-// Application Routes ......................
+//----------------------------------------------|
+//----------- Application Routes ---------------|
+//----------------------------------------------|
 
-// --- Shop Home Initialize -------
+// --- Home Page -------
 Route::get('/', function()
 {
 	return View::make('store');
@@ -17,7 +19,6 @@ Route::get('/product/edit/{id}','ProductController@edit');
 Route::get('/product/{id}','ProductController@show');
 Route::post('/product/update','ProductController@update');
 Route::get('/product/delete/{id}','ProductController@destroy');
-
 // --------- Customer Route ----------
 Route::get('/customars',function(){
 	return View::make('customars.index');
@@ -47,6 +48,9 @@ Route::post('/inventory/create','InventoryController@create');
 Route::get('/inventory/{id}','InventoryController@show');
 Route::post('/inventory/update','InventoryController@update');
 Route::get('/inventory/delete/{id}','InventoryController@destroy');
+//---- search exp ------
+Route::get('/inventory/prosearch/{id}','InventoryController@findName');
+Route::get('/inventory/prosel/{id}','InventoryController@findProduct');
 
 // --------- ORDER Transection Route ----------
 Route::get('/order',function(){
@@ -67,6 +71,33 @@ Route::get('/order/del/{id}','OrderController@destroy');
 Route::get('/payment',function(){
 	return View::make('transection.supPay');
 });
+Route::get('/payment/all','OrderController@allPayment');
+
+//------- Sell Product-------------
+Route::get('/sell',function(){
+	return View::make('sell.index');
+});
+Route::post('/sell/make','SellController@create');
+// Route::get();
+// Route::get();
+// Route::get();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // --------- Others Route ----------
 

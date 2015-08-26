@@ -10,7 +10,7 @@
                 <div class="collapsible-header waves-effect"><i class="fa fa-qrcode"></i> Store</div>
                 <div class="collapsible-body">
                     <div class="collection">
-                        <a href="#!" class="collection-item">Sell</a>
+                        <a href="{{url('/sell')}}" class="collection-item">Sell</a>
                         <a href="{{url('/inventory')}}" class="collection-item">Buy</a>
                     </div>
                 </div>

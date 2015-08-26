@@ -123,5 +123,28 @@ class InventoryController extends \BaseController {
 		}
 	}
 
+	/**
+	 * Search Product functions
+	 */
 
+	public function findName($id){
+		$data = DB::table('inventory')->join('product','inventory.product_id','=','product.id')
+				->select('inventory.id','product.product_name','inventory.eng_no','inventory.chs_no','inventory.sell_rate')
+				->where('inventory.product_id','=',$id)
+				->where('inventory.is_sell','=',0)
+				->get();
+		$op = [];
+		foreach($data as $mata){
+			$op[] = [$mata->id,$mata->eng_no,$mata->chs_no,$mata->product_name,$mata->sell_rate,"action"];
+		}
+		return array('data'=>$op);
+	}
+
+	public  function findProduct($id){
+		$data = DB::table('inventory')->join('product','inventory.product_id','=','product.id')
+			->select('inventory.id','product.product_name','inventory.product_id','inventory.eng_no','inventory.chs_no','inventory.sell_rate')
+			->where('inventory.id','=',$id)
+			->get();
+		return $data;
+	}
 }

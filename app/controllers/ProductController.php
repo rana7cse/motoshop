@@ -103,6 +103,4 @@ class ProductController extends \BaseController {
 			return 'not found';
 		}
 	}
-
-
 }

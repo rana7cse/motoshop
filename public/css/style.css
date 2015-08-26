@@ -51,7 +51,7 @@ body {
           display: block;
           transition: all 0.25s ease 0s;
           color: #26A69A;
-          border-left: #26A69A; }
+          border-left: 2px solid #26A69A; }
 
 .main-page {
   padding-left: 250px;
@@ -469,5 +469,169 @@ input[type="text"]:disabled + label, input[type="text"][readonly="readonly"] + l
   padding: 10px;
   border-bottom: 1px solid #ECECEC;
   margin-bottom: 5px; }
+
+.sell-section_panel {
+  background: #fff; }
+  .sell-section_panel .body {
+    padding: 10px; }
+    .sell-section_panel .body .search {
+      background: #f2f2f2;
+      padding: 5px;
+      border: 1px solid #E3E3E3;
+      margin-bottom: 5px; }
+      .sell-section_panel .body .search .label {
+        font-size: 14px;
+        color: #26A69A;
+        margin-bottom: 5px;
+        text-decoration: underline; }
+      .sell-section_panel .body .search #searchCustomar {
+        height: 35px; }
+      .sell-section_panel .body .search .info ul {
+        margin: 0;
+        padding: 0; }
+        .sell-section_panel .body .search .info ul li label {
+          font-size: 13px;
+          display: inline-block;
+          width: 70px;
+          position: relative;
+          margin-right: 15px;
+          color: #1E7122; }
+          .sell-section_panel .body .search .info ul li label:after {
+            content: " :";
+            position: absolute;
+            top: 0;
+            right: 0; }
+      .sell-section_panel .body .search .product_info ul li label {
+        color: #000; }
+
+.search.product {
+  background: #000; }
+
+.chosen-container-single .chosen-search input[type="text"] {
+  margin: 1px 0px;
+  padding: 4px 0px 4px 0px; }
+
+button.clear_panel {
+  height: 22px;
+  width: 22px;
+  background: #FFF none repeat scroll 0% 0%;
+  border: 1px solid #DDD;
+  padding: 0;
+  text-align: center;
+  transition: all .2s; }
+  button.clear_panel:hover {
+    background: #26A69A;
+    color: #fff; }
+  button.clear_panel:focus {
+    background: #BFBFBF; }
+  button.clear_panel .fa {
+    margin: 0;
+    padding: 0; }
+
+.statusX {
+  margin-top: 5px;
+  padding: 5px;
+  background: #3bb873; }
+  .statusX > div {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600; }
+
+.avtionXX {
+  background: #406661;
+  padding: 5px; }
+
+button.btn_sell {
+  background: transparent;
+  color: #fff;
+  margin: 0 2px;
+  padding: 5px 10px;
+  border: none;
+  transition: all .25s; }
+  button.btn_sell .fa {
+    margin-right: 5px; }
+  button.btn_sell.bill {
+    background: #e49756; }
+  button.btn_sell.done {
+    background: #3bb873; }
+  button.btn_sell.pay {
+    background: #dab760; }
+  button.btn_sell:hover {
+    background: rgba(45, 51, 12, 0.72); }
+
+.sell_product_area {
+  background: #fff; }
+  .sell_product_area .row {
+    margin-bottom: 0; }
+  .sell_product_area .box {
+    background: #f2f2f2;
+    padding: 5px;
+    border: 1px solid #E3E3E3;
+    margin-bottom: 5px; }
+    .sell_product_area .box_title {
+      font-size: 14px;
+      color: #26A69A;
+      margin-bottom: 5px;
+      text-decoration: underline; }
+    .sell_product_area .box #search_product_name {
+      height: 30px; }
+    .sell_product_area .box #search_engine_no {
+      border: 1px solid #C7C7C7;
+      height: 30px;
+      margin: 0;
+      padding: 0 5px;
+      background: #FBF9F9;
+      width: 100%;
+      box-sizing: border-box; }
+    .sell_product_area .box .chosen-container-single .chosen-single {
+      height: 30px;
+      line-height: 28px; }
+
+.bykeNoSearch {
+  position: relative; }
+  .bykeNoSearch #btn_search_eng_no {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #e49756;
+    color: #fff;
+    border: 1px solid #fff;
+    transition: all .3s; }
+    .bykeNoSearch #btn_search_eng_no:hover {
+      background: rgba(45, 51, 12, 0.72); }
+    .bykeNoSearch #btn_search_eng_no:focus {
+      background: #ff7d5d; }
+
+.sell_product_table {
+  height: 380px;
+  overflow: auto;
+  padding: 10px; }
+
+.section_pay {
+  border: 1px solid #E0E0E0;
+  background: #F6F6F6;
+  padding: 5px 10px;
+  margin-bottom: 10px; }
+  .section_pay .label {
+    margin-bottom: 10px;
+    padding: 2px;
+    border-bottom: 1px solid #7CC062;
+    color: #459029;
+    font-size: 14px; }
+  .section_pay ul {
+    margin: 0; }
+    .section_pay ul li label {
+      width: 70px;
+      position: relative;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      color: #000;
+      margin-right: 15px; }
+      .section_pay ul li label:after {
+        position: absolute;
+        content: " :";
+        right: 0;
+        top: 0; }
 
 /*# sourceMappingURL=style.css.map */

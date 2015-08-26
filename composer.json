@@ -6,7 +6,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"fzaninotto/faker": "^1.5",
-		"way/generators": "^3.0"
+		"way/generators": "~2.0"
 	},
 	"autoload": {
 		"classmap": [
