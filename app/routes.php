@@ -51,7 +51,7 @@ Route::get('/inventory/delete/{id}','InventoryController@destroy');
 //---- search exp ------
 Route::get('/inventory/prosearch/{id}','InventoryController@findName');
 Route::get('/inventory/prosel/{id}','InventoryController@findProduct');
-
+Route::get('/inventory/report/all','InventoryController@reportAll');
 // --------- ORDER Transection Route ----------
 Route::get('/order',function(){
 	$status = array(
@@ -78,11 +78,9 @@ Route::get('/payment/all','OrderController@allPayment');
 Route::get('/sell',function(){
 	return View::make('sell.index');
 });
-
 Route::get('/sell/report',function(){
 	return View::make('sell.report');
 });
-
 Route::post('/sell/make','SellController@create');
 Route::get('/sell/{to}/{form}','SellController@index');
 // Route::get();

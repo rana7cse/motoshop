@@ -23,7 +23,7 @@
                         <a href="{{url('/product/manage')}}" class="collection-item">Manage Product
                             <span class="badge new"><i class="fa fa-pencil-square-o"></i></span>
                         </a>
-                        <a href="{{url('/product/manage')}}" class="collection-item">Report
+                        <a href="{{url('/inventory/report/all')}}" class="collection-item">Report
                             <span class="badge new"><i class="fa fa-pencil-square-o"></i></span>
                         </a>
                     </div>

@@ -201,6 +201,32 @@ $(function(){
             console.log(e);
         }
     });
+
+    //------ Print Sell Report----------
+
+    $('#print_report').click(function(){
+        if(sellX.payment_info == 0){
+            var customar = sellX.customar;
+            var product = sellX.product;
+            var info = sellX.payment_info;
+            //------ Show Customer Information -----------
+            $('#rp_cus_id').html(customar.id);
+            $('#rp_cus_name').html(customar.first_name+" "+customar.last_name);
+            $('#rp_cus_add').html(customar.address);
+            $('#rp_cus_phone').html(customar.phone+", "+customar.phone2);
+            //--------- Product information block ----------
+            $('#rp_pro_eng_no').html(product.eng_no);
+            $('#rp_pro_chs_no').html(product.chs_no);
+
+            $('body').html($('#cashReport').html());
+            window.print();
+        }else{
+            Materialize.toast('Please Pay First',2000);
+        }
+    });
+    window.onafterprint = function(){
+        window.location.reload(true);
+    }
 });
 
 //product added from product list;

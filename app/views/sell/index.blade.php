@@ -73,9 +73,9 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="avtionXX">
-                                <button class="btn_sell pull-left bill"><i class="fa fa-print"></i>Print Bill</button>
+                                <button class="btn_sell pull-left bill" id="print_report"><i class="fa fa-print"></i>Print Bill & Finish</button>
                                 <button class="btn_sell pull-left pay" id="sell_payment"><i class="fa fa-money"></i>Payment</button>
-                                <button class="btn_sell pull-right done"><i class="fa fa-paper-plane-o"></i> Done</button>
+                                {{--<button class="btn_sell pull-right done"><i class="fa fa-paper-plane-o"></i> Done</button>--}}
                                 <div class="clearfix"></div>
                             </div>
                         </div>
@@ -200,6 +200,78 @@
                     <div class="btn btn-flat reset">Reset</div>
                     <div class="btn btn-flat submit" id="btn_payment_send">Submit</div>
                 </div>
+        </div>
+    </div>
+    <div id="cashReport">
+        <a href="{{url('/sell')}}" class="btn btn-large" id="button_back"> Complete </a>
+        <div class="mr_report">
+            <header class="report_header">
+                <div class="name">ELIN MOTORS</div>
+                <div class="heading">All kinds of motorcycle seller</div>
+                <div class="motors">Serve: HONDA, HIRO HONDA, BAJAJ, ETC</div>
+                <div class="address">NIMTOLA, DINAJPUR</div>
+                <div class="contact">Phone: 0531-64436, Mobile: 01616652659, 01718185064</div>
+            </header>
+            <div class="section">
+                <div class="tags">
+                    <ul>
+                        <li>INV NO : ......................</li>
+                        <li class="ta_center"><b>INVOICE</b></li>
+                        <li>
+                            <div class="ta_right">DATE : ...........................</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="information">
+                    <div class="box_50 pull_left">
+                        <div class="title">Customer information</div>
+                        <div class="info">
+                            <ul>
+                                <li>
+                                    <label>Customer ID </label><span id="rp_cus_id"></span>
+                                </li>
+                                <li>
+                                    <label>Name</label><span id="rp_cus_name"></span>
+                                </li>
+                                <li>
+                                    <label>Father Name</label><span id="rp_cus_f_name">______________________________________</span>
+                                </li>
+                                <li>
+                                    <label>Address </label><span id="rp_cus_add"></span>
+                                </li>
+                                <li>
+                                    <label>Phone </label><span id="rp_cus_phone"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box_50 pull_right">
+                        <div class="title">Product information</div>
+                        <div class="info">
+                            <ul>
+                                <li>
+                                    <label>Product Name </label><span>_______________________ </span>
+                                    <label style="width: 30px">CC</label><span>__________</span>
+                                </li>
+                                <li>
+                                    <label>Engine No</label><span id="rp_pro_eng_no"></span>
+                                </li>
+                                <li>
+                                    <label>Chases No</label><span id="rp_pro_chs_no"></span>
+                                </li>
+                                <li>
+                                    <label>Model </label><span>________________________________</span>
+                                </li>
+                                <li>
+                                    <label style="width: 60px">Year </label><span>____________ </span>
+                                    <label style="width: 80px">Made By: </label><span>___________________</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear_fix"></div>
+                </div>
+            </div>
         </div>
     </div>
 @stop

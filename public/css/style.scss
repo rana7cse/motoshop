@@ -859,3 +859,141 @@ button.btn_sell{
     padding-bottom: 10px;
   }
 }
+
+#cashReport{
+  display: none;
+}
+
+@page  {
+  size: 21cm 29.7cm;
+  margin: 0;
+  margin-left: 10pt;
+  margin-right: 10pt;
+}
+
+@media screen {
+  .mr_report {
+    display: none;
+  }
+}
+
+@media print {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    width: 21cm;
+    height: 29.7cm;
+    background: #fff;
+    margin: 0;
+  }
+  #button_back {
+    display: none;
+  }
+  .mr_report {
+    .report_header {
+      text-align: center;
+      margin-top: 10pt;
+      padding-bottom: 10pt;
+      border-bottom: 1px solid #3e7c3e;
+      .name {
+        font-weight: 600;
+        font-size: 18pt;
+        color: #3e7c3e;
+      }
+      .heading {
+        font-size: 12pt;
+        text-transform: uppercase;
+      }
+      .motors,.address,.contact {
+        font-size: 10pt;
+        text-transform: uppercase;
+      }
+    }
+    .section {
+      margin: 0;
+      padding: 0;
+      .tags {
+        ul {
+          margin: 0;
+          padding: 0;
+           li {
+            width: 33%;
+            display: inline-block;
+            font-size: 10pt;
+          }
+        }
+      }
+      .information {
+        width: 100%;
+        margin-top: 8pt;
+        .box_50 {
+          width: 50%;
+          background: #ff3d00;
+          display: block;
+          padding: 0 10px;
+          &:first-child {
+            border-right: 1px dotted #000;
+          }
+          .title {
+            font-size: 13pt;
+            text-decoration: underline;
+            font-weight: 600;
+          }
+          .info {
+            margin-top: 5px;
+            ul {
+              margin: 0;
+              padding: 0;
+              li {
+                margin-bottom: 2px;
+                font-size: 11pt;
+                label {
+                  width: 100px;
+                  position: relative;
+                  font-size: 11pt;
+                  margin-right: 10px;
+                  display: inline-block;
+                  font-weight: 600;
+                  &:after{
+                    content: " :";
+                    position: absolute;
+                    top: 0;
+                    right: 0px;
+                  }
+                }
+                span {
+                  font-size: 11pt;
+                  color: #000;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .ta_center {
+    text-align: center;
+  }
+  .ta_right {
+    text-align: right;
+  }
+  .pull_left {
+    float: left;
+  }
+  .pull_right {
+    float: right;
+  }
+  .clear_fix {
+    display: block;
+    width: 100%;
+    clear: both;
+    float: none;
+  }
+}
+
+.report_table_inventory {
+  background: #fff;
+  padding: 10px;
+}

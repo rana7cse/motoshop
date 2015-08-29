@@ -147,4 +147,11 @@ class InventoryController extends \BaseController {
 			->get();
 		return $data;
 	}
+
+	public function reportAll(){
+		$report = DB::select(
+			DB::raw("SELECT (SELECT product_name FROM product WHERE id=product_id) as product,count(product_id) as total FROM inventory WHERE is_sell = '0' GROUP BY product_id")
+		);
+		return View::make('product.report',compact('report'));
+	}
 }

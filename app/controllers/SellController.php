@@ -103,7 +103,7 @@ class SellController extends \BaseController {
 			];
 			$loan = [
 				'sold_id'		=> $sold->id,
-				'rate'			=> $sold->price,
+				'rate'			=> $input['frm_inst_rate'],
 				'total_inst'	=> $sold->installments,
 				'current_inst' 	=> 1,
 				'current_paid'	=> $sold->paid,
@@ -117,74 +117,25 @@ class SellController extends \BaseController {
 			$paid = CusPay::create($payment);
 			return [
 				'data' => [
-					'sold_id' => $sold->id,
-					'paid_id' => $paid->id,
-					'loan_id' => $setLoan->id
+					'sold_id' 		=> $sold->id,
+					'paid_id' 		=> $paid->id,
+					'payment' 		=> [
+						'date' 		=> 	$sold->sold_date,
+						'billed' 	=>	$sold->price,
+						'paid' 		=> $sold->paid,
+						'due' 		=> $sold->due,
+						'loan' => [
+							'instalment_rate' => $setLoan->rate,
+							'installments' 	=> $setLoan->total_inst,
+							'end_date' 		=> $setLoan->end_date,
+							'next_pay_date' => $setLoan->next_pay_date
+						]
+					],
 				],
 				'massage' => 'Success to payment',
 				'status' => 1
 			];
 		}
 	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
 
 }
