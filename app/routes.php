@@ -6,7 +6,8 @@
 // --- Home Page -------
 Route::get('/', function()
 {
-	return View::make('store');
+	//return View::make('store');
+	return View::make('sell.index');
 });
 
 // ------ Product Routes Here --------
