@@ -23,31 +23,15 @@
                                         <div class="col s6">
                                             <div class="input-field">
                                                 <input id="pro_name" name="pro_name" type="text" class="validate">
-                                                <label for="first_name">Product Name</label>
+                                                <label for="first_name">Motorcycle Name</label>
                                             </div>
                                             <div class="input-field">
-                                                <input name="pro_visible" class="with-gap" value="1" type="radio" id="test1" checked/>
-                                                <label for="test1">Active</label>
-                                                <input name="pro_visible" class="with-gap" value="0" type="radio" id="test2" />
-                                                <label for="test2">Inactive</label>
+                                                <input id="pro_cc" name="pro_cc" type="text" class="validate">
+                                                <label for="first_name">CC/Range</label>
                                             </div>
-                                        </div>
-                                        <div class=" col s6">
-                                            <div class="product_image_section">
-                                                <div class="product_image_box">
-                                                    <div class="product_image_title">
-                                                        Upload Product Image
-                                                    </div>
-                                                    <div class="product_image">
-                                                        <img src="{{asset('bower_components/rocket3-256/index.png')}}" alt="" id="show_image_upload">
-                                                        <input type="file" name="product_image" id="product_image">
-                                                        <input type="hidden" name="pro_img" id="image_name">
-                                                    </div>
-                                                    <div class="progress">
-                                                        <div class="determinate" style="width: 40%" id="image_progress"></div>
-                                                    </div>
-                                                    <a class="btn btn-block product_image_upload" id="doImageUpload">Upload Image</a>
-                                                </div>
+                                            <div class="input-field">
+                                                <input id="pro_model" name="pro_model" type="text" class="validate">
+                                                <label for="first_name">Model/Year</label>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -64,8 +48,8 @@
                                     <tr>
                                         <th data-field="id" width="50px">ID</th>
                                         <th data-field="name">Name</th>
-                                        <th data-field="price">Visibility</th>
-                                        <th>img</th>
+                                        <th data-field="price">CC/Range</th>
+                                        <th>Model</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -82,12 +66,12 @@
                                                         <input id="editProName" name="editProName" type="text" class="validate">
                                                     </div>
                                                     <div class="col s4">
-                                                        <label>Product Visibility</label>
-                                                        <select class="browser-default" name="editVisiblility" id="editVisiblility">
-                                                            <option value="">Product Activity</option>
-                                                            <option value="0">Inactive</option>
-                                                            <option value="1">Active</option>
-                                                        </select>
+                                                        <label for="editProName">Product CC</label>
+                                                        <input id="editProcc" name="editProcc" type="text" class="validate">
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <label for="editProName">Product Model</label>
+                                                        <input id="editProModel" name="editProModel" type="text" class="validate">
                                                     </div>
                                                     <input type="hidden" name="editProductId" id="editProductId">
                                                     <div class="col s4">

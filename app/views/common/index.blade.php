@@ -23,7 +23,7 @@
                                     <span class="name">Administrator</span>
                                 </li>
                                 <li><a href="#">Setting</a></li>
-                                <li><a href="#">Logout</a></li>
+                                <li><a href="{{url('/logout')}}">Logout</a></li>
                             </ul>
                         </div>
                     </div>

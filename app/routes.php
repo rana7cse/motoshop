@@ -4,88 +4,98 @@
 //----------------------------------------------|
 
 // --- Home Page -------
-Route::get('/', function()
-{
-	//return View::make('store');
-	return View::make('sell.index');
-});
+Route::get('login', array('uses' => 'HomeController@showLogin'));
+Route::post('login', array('uses' => 'HomeController@doLogin'));
+Route::get('/logout', array('uses' => 'HomeController@logout'));
 
-// ------ Product Routes Here --------
-Route::get('/product/manage',function(){
-	return View::make('product.index');
-});
-Route::get('/product','ProductController@index');
-Route::post('/product/create','ProductController@create');
-Route::get('/product/edit/{id}','ProductController@edit');
-Route::get('/product/{id}','ProductController@show');
-Route::post('/product/update','ProductController@update');
-Route::get('/product/delete/{id}','ProductController@destroy');
-// --------- Customer Route ----------
-Route::get('/customars',function(){
-	return View::make('customars.index');
-});
-Route::get('/customar_all',"CustomarController@index");
-Route::post('/customar_add',"CustomarController@create");
-Route::get('/customer/{id}',"CustomarController@show");
-Route::post('/customar/update',"CustomarController@update");
-Route::get('/customer/del/{id}',"CustomarController@destroy");
+Route::group(array('before' => 'auth'), function() {
+	Route::get('/', function () {
+		//return View::make('store');
+		return View::make('sell.index');
+	});
 
-// --------- Supplier Route ----------
-Route::get('suppliers',function(){
-	return View::make('supplier.index');
-});
-Route::get('/supplier/all',"SupplierController@index");
-Route::post('/supplier/add',"SupplierController@create");
-Route::get('/supplier/{id}',"SupplierController@show");
-Route::post('/supplier/update',"SupplierController@update");
-Route::get('/supplier/del/{id}',"SupplierController@destroy");
+	// ------ Product Routes Here --------
+	Route::get('/product/manage', function () {
+		return View::make('product.index');
+	});
+	Route::get('/product', 'ProductController@index');
+	Route::post('/product/create', 'ProductController@create');
+	Route::get('/product/edit/{id}', 'ProductController@edit');
+	Route::get('/product/{id}', 'ProductController@show');
+	Route::post('/product/update', 'ProductController@update');
+	Route::get('/product/delete/{id}', 'ProductController@destroy');
+	// --------- Customer Route ----------
+	Route::get('/customars', function () {
+		return View::make('customars.index');
+	});
+	Route::get('/customar_all', "CustomarController@index");
+	Route::post('/customar_add', "CustomarController@create");
+	Route::get('/customer/{id}', "CustomarController@show");
+	Route::post('/customar/update', "CustomarController@update");
+	Route::get('/customer/del/{id}', "CustomarController@destroy");
 
-// --------- Inventory Route ----------
-Route::get('/inventory',function(){
-	return View::make('inventory.index');
-});
-Route::get('/inventory/all','InventoryController@index');
-Route::post('/inventory/create','InventoryController@create');
-Route::get('/inventory/{id}','InventoryController@show');
-Route::post('/inventory/update','InventoryController@update');
-Route::get('/inventory/delete/{id}','InventoryController@destroy');
-//---- search exp ------
-Route::get('/inventory/prosearch/{id}','InventoryController@findName');
-Route::get('/inventory/prosel/{id}','InventoryController@findProduct');
-Route::get('/inventory/report/all','InventoryController@reportAll');
-// --------- ORDER Transection Route ----------
-Route::get('/order',function(){
-	$status = array(
-		'totalBilled' => DB::table('pro_buy_info')->sum('ammount'),
-		'totalPay'  => DB::table('pro_buy_info')->sum('pay'),
-		'totalDue' => DB::table('pro_buy_info')->sum('due')
-	);
-	return View::make('transection.order',compact("status"));
-});
-Route::get('/order/all','OrderController@index');
-Route::post('/order/make','OrderController@create');
-Route::get('/order/{id}','OrderController@show');
-Route::post('/order/pay','OrderController@orderPay');
-Route::get('/order/del/{id}','OrderController@destroy');
+	// --------- Supplier Route ----------
+	Route::get('suppliers', function () {
+		return View::make('supplier.index');
+	});
+	Route::get('/supplier/all', "SupplierController@index");
+	Route::post('/supplier/add', "SupplierController@create");
+	Route::get('/supplier/{id}', "SupplierController@show");
+	Route::post('/supplier/update', "SupplierController@update");
+	Route::get('/supplier/del/{id}', "SupplierController@destroy");
 
-//----------- ORDER PAYMENT ROUTE -----------
-Route::get('/payment',function(){
-	return View::make('transection.supPay');
-});
-Route::get('/payment/all','OrderController@allPayment');
+	// ---------------- Inventory Route ------------------
+	Route::get('/inventory', function () {
+		return View::make('inventory.index');
+	});
+	Route::get('/inventory/all', 'InventoryController@index');
+	Route::post('/inventory/create', 'InventoryController@create');
+	Route::get('/inventory/{id}', 'InventoryController@show');
+	Route::post('/inventory/update', 'InventoryController@update');
+	Route::get('/inventory/delete/{id}', 'InventoryController@destroy');
+	//--------------------- search exp --------------------
+	Route::get('/inventory/prosearch/{id}', 'InventoryController@findName');
+	Route::get('/inventory/prosel/{id}', 'InventoryController@findProduct');
+	Route::get('/inventory/report/all', 'InventoryController@reportAll');
+	// --------- ORDER Transection Route ------------------
+	Route::get('/order', function () {
+		$status = array(
+			'totalBilled' => DB::table('pro_buy_info')->sum('ammount'),
+			'totalPay' => DB::table('pro_buy_info')->sum('pay'),
+			'totalDue' => DB::table('pro_buy_info')->sum('due')
+		);
+		return View::make('transection.order', compact("status"));
+	});
+	Route::get('/order/all', 'OrderController@index');
+	Route::post('/order/make', 'OrderController@create');
+	Route::get('/order/{id}', 'OrderController@show');
+	Route::post('/order/pay', 'OrderController@orderPay');
+	Route::get('/order/del/{id}', 'OrderController@destroy');
 
-//------- Sell Product-------------
+	//-------| ORDER PAYMENT ROUTE |-----------
+	Route::get('/payment', function () {
+		return View::make('transection.supPay');
+	});
+	Route::get('/payment/all', 'OrderController@allPayment');
 
-Route::get('/sell',function(){
-	return View::make('sell.index');
+	//-------------| Sell Product |------------
+	Route::get('/sell', function () {
+		return View::make('sell.index');
+	});
+	Route::get('/sell/report', function () {
+		return View::make('sell.report');
+	});
+	Route::post('/sell/make', 'SellController@create');
+	Route::get('/sell/{to}/{form}', 'SellController@index');
+
+	//-------------| Manage Installment | --------
+	Route::get('/loan', function () {
+		return View::make('transection.installments');
+	});
+	Route::get('/getInstllments', 'SellController@loanInfo');
+	Route::get('getLoanInfo/{id}', 'SellController@getInfo');
+	Route::post('/makeInstalment','SellController@payInstallment');
 });
-Route::get('/sell/report',function(){
-	return View::make('sell.report');
-});
-Route::post('/sell/make','SellController@create');
-Route::get('/sell/{to}/{form}','SellController@index');
-// Route::get();
-// Route::get();
 
 
 

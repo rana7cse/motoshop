@@ -146,9 +146,17 @@
                         <input placeholder="Placeholder" id="pro_quantity" type="text" name="pro_quantity" value="1" disabled>
                         <label for="pro_quantity">Product Quantity</label>
                     </div>
-                    <div class="input-field col s6">
-                        <input placeholder="Placeholder" id="pro_supplier" type="text" name="pro_supplier" disabled value="NA">
-                        <label for="pro_supplier">Product Supplier</label>
+                    <div class="input-field col s6" style="margin-top: 0;">
+                        <span style="font-size: 12px; margin-bottom: 11px; display: block;">Supplier Name</span>
+                        <select class="browser-default" id="supplyir_id" name="supplyir_id">
+                            <option value="">Select Supplier</option>
+                            <?php
+                            $supplier = DB::table('supplier')->select('*')->get();
+                            ?>
+                            @foreach($supplier as $list)
+                                <option value="{{$list->id}}">{{$list->supp_name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </form>
             </div>

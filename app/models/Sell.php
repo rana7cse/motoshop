@@ -3,6 +3,6 @@
 class Sell extends Eloquent {
 
 	protected $table = 'moto_sold';
-	protected $fillable = ['inv_id','cus_id','price','sold_date','payment_status','installments','paid','due'];
+	protected $fillable = ['inv_id','cus_id','price','vat','bank_int','sold_date','payment_status','installments','total_billed','paid','due'];
 
 }

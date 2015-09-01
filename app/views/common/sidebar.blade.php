@@ -35,7 +35,7 @@
                     <div class="collection">
                         <a href="{{url('/order')}}" class="collection-item">Make Order</a>
                         <a href="{{url('/payment')}}" class="collection-item">View Payments</a>
-                        <a href="#!" class="collection-item">Receive</a>
+                        <a href="{{url('/loan')}}" class="collection-item">Manage Installment</a>
                     </div>
                 </div>
             </li>

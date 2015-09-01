@@ -41,11 +41,11 @@ class CustomarController extends \BaseController {
     		'email' 		=> $input['cusEmail'],
     		'phone' 		=> $input['cusPhone'],
     		'phone2' 		=> $input['cusPhone2'],
-    		'nid_no'		=> $input['cusNid']
+    		'fat_name'		=> $input['cusFatName']
 		);
 		$insert = Customar::create($data);
 		if($insert){
-			return json_encode(array('error'=>0,'success'=>1));
+			return json_encode(array('error'=>0,'success'=>1, 'id' => $insert->id));
 		} else {
 			return json_encode(array('error'=>1,'success'=>0));
 		}

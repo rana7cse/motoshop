@@ -12,7 +12,7 @@ class ProductController extends \BaseController {
 		$all = Product::all();
 		$op = array();
 		foreach($all as $data){
-			$op[] = array("{$data->id}",$data->product_name,"$data->product_visibility",$data->product_img,"action");
+			$op[] = array("{$data->id}",$data->product_name,"$data->bike_cc",$data->model,"action");
 		}
 		return json_encode(array("data"=>$op));
 	}
@@ -27,8 +27,8 @@ class ProductController extends \BaseController {
 	{
 		$data = array(
 			'product_name' => Input::get('pro_name'),
-			'product_visibility' => Input::get('pro_visible'),
-			'product_img' => Input::get('pro_img')
+			'bike_cc' => Input::get('pro_cc'),
+			'model' => Input::get('pro_model')
 		);
 		$insert = Product::create($data);
 		if($insert){
@@ -76,7 +76,8 @@ class ProductController extends \BaseController {
 		$update = $product->update(
 			array(
 				'product_name' => $input['editProName'],
-				'product_visibility' => $input['editVisiblility']
+				'bike_cc' => $input['editProcc'],
+				'model' => $input['editProModel']
 			)
 		);
 

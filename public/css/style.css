@@ -1,6 +1,9 @@
 /*
 Starting Css for Esoft
 */
+@font-face {
+  font-family: Sutony;
+  src: url("../font/SUTOM___.TTF"); }
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 13px;
@@ -693,6 +696,10 @@ button.btn_sell {
         width: 33%;
         display: inline-block;
         font-size: 10pt; }
+    .mr_report .section .rp_bill_area {
+      padding: 10px 0;
+      border-top: 1px solid #000;
+      margin-top: 10px; }
     .mr_report .section .information {
       width: 100%;
       margin-top: 8pt; }
@@ -709,6 +716,24 @@ button.btn_sell {
           font-weight: 600; }
         .mr_report .section .information .box_50 .info {
           margin-top: 5px; }
+          .mr_report .section .information .box_50 .info.billed {
+            margin-top: 10px; }
+            .mr_report .section .information .box_50 .info.billed ul {
+              margin: 0;
+              padding: 0; }
+              .mr_report .section .information .box_50 .info.billed ul li {
+                margin-bottom: 2px;
+                font-size: 11pt; }
+                .mr_report .section .information .box_50 .info.billed ul li label {
+                  width: 150px;
+                  margin-right: 20px; }
+                .mr_report .section .information .box_50 .info.billed ul li span {
+                  font-size: 11pt;
+                  position: relative;
+                  display: inline-block;
+                  margin-right: 10px;
+                  width: 120px;
+                  text-align: right; }
           .mr_report .section .information .box_50 .info ul {
             margin: 0;
             padding: 0; }
@@ -730,6 +755,34 @@ button.btn_sell {
               .mr_report .section .information .box_50 .info ul li span {
                 font-size: 11pt;
                 color: #000; }
+    .mr_report .section .declearation {
+      margin: 10px; }
+      .mr_report .section .declearation p {
+        margin-bottom: 10px;
+        font-size: 14pt;
+        color: #000;
+        text-align: justify; }
+      .mr_report .section .declearation .installment_pay .heading {
+        font-size: 14px;
+        margin: 5px 0;
+        font-weight: 600; }
+      .mr_report .section .declearation .installment_pay .installment_table_report table {
+        width: 30%;
+        margin-right: 5%;
+        float: left; }
+        .mr_report .section .declearation .installment_pay .installment_table_report table:last-child {
+          margin-right: 0; }
+        .mr_report .section .declearation .installment_pay .installment_table_report table td {
+          border: 1px solid #000;
+          padding: 2px;
+          font-size: 12pt; }
+        .mr_report .section .declearation .installment_pay .installment_table_report table th {
+          border: 1px solid #000;
+          padding: 2px;
+          font-size: 12pt;
+          font-weight: 600; }
+    .mr_report .section .footer_sign {
+      margin-top: 30px; }
 
   .ta_center {
     text-align: center; }
@@ -751,5 +804,18 @@ button.btn_sell {
 .report_table_inventory {
   background: #fff;
   padding: 10px; }
+
+.payableBill {
+  display: block;
+  width: 200px;
+  text-align: left;
+  background: #0AA260;
+  color: #fff;
+  padding: 5px; }
+
+#totalBilled {
+  color: #CBEFDF;
+  font-weight: 600;
+  font-size: 14px; }
 
 /*# sourceMappingURL=style.css.map */

@@ -99,6 +99,10 @@
                                                 <label for="eng_no">Address :</label>
                                             </div>
                                             <div class="input-field col s6">
+                                                <input placeholder="Enter father Name" id="cusFatName" type="text" name="cusFatName">
+                                                <label for="cusLastName">Last Name :</label>
+                                            </div>
+                                            <div class="input-field col s6">
                                                 <input placeholder="Enter Email ID" id="cusEmail" type="text" name="cusEmail">
                                                 <label for="eng_no">Email Address :</label>
                                             </div>
@@ -110,8 +114,8 @@
                                                 <input placeholder="Phone/Mobile No" id="cusPhone2" type="text" name="cusPhone2">
                                                 <label for="eng_no">Phone2/Mobile2 No :</label>
                                             </div>
-                                            <div class="input-field col s6">
-                                                <input placeholder="National ID" id="cusNid" type="text" name="cusNid">
+                                            <div class="input-field col s6" style="display: none">
+                                                <input placeholder="National ID" id="cusNid" type="text" name="cusNid" value="111">
                                                 <label for="eng_no">National ID :</label>
                                             </div>
                                         </form>

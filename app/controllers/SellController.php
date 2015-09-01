@@ -51,7 +51,11 @@ class SellController extends \BaseController {
 			//''	=>	$input['frm_inst_rate'],
 			'cus_id'			=>	$input['cus_id'],
 			'inv_id'			=>	$input['inv_id'],
-			'sold_date' 		=>	$dateX->year."-".$dateX->month."-".$dateX->day
+			'sold_date' 		=>	$dateX->year."-".$dateX->month."-".$dateX->day,
+			'vat' 				=> $input['frm_payVat'],
+			'bank_int'			=> $input['frm_payInt'],
+			'total_billed'		=> $input['total_bill']
+
 		];
 
 		if($p_status == 'cash'){
@@ -76,14 +80,18 @@ class SellController extends \BaseController {
 				$paid = CusPay::create($payment);
 				return [
 					'data' => [
-						'sold_id' 	=> $sold->id,
-						'paid_id' 	=> $paid->id,
-						'payment' 	=> [
-							'date' 		=> 	$sold->sold_date,
-							'billed' 	=>	$sold->price,
-							'paid' => $sold->paid,
-							'due' => $sold->due
-						]
+						'sold_info' 	=> [
+							'id' 			=> $sold->id,
+							'moto_price'	=> $sold->price,
+							'vat'			=> $sold->vat,
+							'bank_int'		=> $sold->bank_int,
+							'sold_date'		=> $sold->sold_date,
+							'total_billed'	=> $sold->total_billed,
+							'installments'	=> $sold->installments,
+							'paid'			=> $sold->paid,
+							'due'			=> $sold->due
+						],
+						'paid_id' 	=> $paid->id
 					],
 					'massage' => 'Success to payment',
 					'status' => 1
@@ -117,24 +125,86 @@ class SellController extends \BaseController {
 			$paid = CusPay::create($payment);
 			return [
 				'data' => [
-					'sold_id' 		=> $sold->id,
-					'paid_id' 		=> $paid->id,
-					'payment' 		=> [
-						'date' 		=> 	$sold->sold_date,
-						'billed' 	=>	$sold->price,
-						'paid' 		=> $sold->paid,
-						'due' 		=> $sold->due,
-						'loan' => [
-							'instalment_rate' => $setLoan->rate,
-							'installments' 	=> $setLoan->total_inst,
-							'end_date' 		=> $setLoan->end_date,
-							'next_pay_date' => $setLoan->next_pay_date
-						]
+					'sold_info' 	=> [
+						'id' 			=> $sold->id,
+						'moto_price'	=> $sold->price,
+						'vat'			=> $sold->vat,
+						'bank_int'		=> $sold->bank_int,
+						'sold_date'		=> $sold->sold_date,
+						'total_billed'	=> $sold->total_billed,
+						'paid'			=> $sold->paid,
+						'due'			=> $sold->due,
+						'total_inst'	=> $setLoan->total_inst,
+						'rate'			=> $setLoan->rate
 					],
+					'paid_id' 		=> $paid->id,
+					'loan_id'		=> $setLoan->id
 				],
 				'massage' => 'Success to payment',
 				'status' => 1
 			];
+		}
+	}
+
+
+	/**
+	 * Installments the Management
+	 *
+	 */
+
+	public function loanInfo(){
+		$info = DB::table('car_loan')
+			->join('moto_sold','moto_sold.id','=','car_loan.sold_id')
+			->join('inventory','inventory.id','=','moto_sold.inv_id')
+			->join('product','product.id','=','inventory.product_id')
+			->join('customars','customars.id','=','moto_sold.cus_id')
+			->select('car_loan.id','customars.first_name','customars.last_name','moto_sold.cus_id',
+				'product.product_name','car_loan.current_due','car_loan.rate','car_loan.next_pay_date',
+				'car_loan.current_inst','moto_sold.sold_date')->get();
+		$op = [];
+		foreach($info as $list){
+			$op[] = [$list->id,$list->first_name." ".$list->last_name." ( ".$list->cus_id." )",$list->product_name,$list->current_due,$list->rate,$list->next_pay_date,$list->current_inst,$list->sold_date,"Action"];
+		}
+		return ['data' => $op];
+	}
+
+	public function getInfo($id){
+		return Loan::find($id);
+	}
+
+	public function payInstallment(){
+		$input = Input::all();
+		$sold_info = DB::table('car_loan')->join('moto_sold','moto_sold.id','=','car_loan.sold_id')
+			->where('car_loan.id',$input['loan_id_hd'])
+			->select('car_loan.id','car_loan.sold_id','moto_sold.cus_id',
+				'car_loan.current_inst','car_loan.current_paid','car_loan.current_due','car_loan.next_pay_date')
+			->first();
+		$payment = [
+			'car_sold_id' 	=> $sold_info->sold_id,
+			'cus_id' 		=> $sold_info->cus_id,
+			'paid' 			=> $input['inst_payTotal'],
+			'interest'		=> 0,
+			'due_date' 		=> $input['inst_Paydate'],
+			'comment' 		=> "Instalment pay on $sold_info->id"
+		];
+		$nexDate = \Carbon\Carbon::parse($sold_info->next_pay_date)->addMonth();
+		$update = [
+			'current_inst' => $sold_info->current_inst + 1,
+			'current_paid' => $sold_info->current_paid + $input['inst_payAmount'],
+			'current_due' => $sold_info->current_due - $input['inst_payAmount'],
+			'next_pay_date' => $nexDate->year."-".$nexDate->month."-".$nexDate->day
+		];
+		$paid = CusPay::create($payment);
+		if($paid->exists){
+			$updateX = DB::table('car_loan')->where('id',$input['loan_id_hd'])
+				->update($update);
+			if($updateX){
+				return ['success'=>1,'error'=>0];
+			} else {
+				return ['success'=>0,'error'=>1];
+			}
+		} else {
+			return ['success'=>0,'error'=>1];
 		}
 	}
 

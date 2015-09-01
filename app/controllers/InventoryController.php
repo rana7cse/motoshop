@@ -52,7 +52,7 @@ class InventoryController extends \BaseController {
 			'sell_rate' => $item['pro_sell_rate'],
 			'img' => 'NA',
 			'item_no' => 'NA',
-			'supplyir_id' => 'NA'
+			'supplyir_id' => $item['supplyir_id']
 		);
 
 		try{
@@ -142,7 +142,7 @@ class InventoryController extends \BaseController {
 
 	public  function findProduct($id){
 		$data = DB::table('inventory')->join('product','inventory.product_id','=','product.id')
-			->select('inventory.id','product.product_name','inventory.product_id','inventory.eng_no','inventory.chs_no','inventory.sell_rate')
+			->select('inventory.id','product.product_name','inventory.product_id','inventory.eng_no','inventory.chs_no','inventory.sell_rate','product.bike_cc','product.model')
 			->where('inventory.id','=',$id)
 			->get();
 		return $data;

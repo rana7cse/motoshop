@@ -25,7 +25,7 @@ $(function(){
         lists.map(function(k){
             $('#searchCustomar').append("" +
                 "<option value='"+k[0]+"'>" +
-                k[1] + " (" +k[2]+") "+
+                k[1] + " ( " +k[2]+" ) "+
                 "</option>");
         });
         $('#searchCustomar').chosen();
@@ -122,20 +122,28 @@ $(function(){
                 $('#payProChsNo').html(product.chs_no);
                 $('#payProRate').html(product.sell_rate + "tk");
                 $('#frm_payable').val(product.sell_rate);
-                $('#frm_ammount,#frm_due,#frm_due,#frm_inst_rate').val(0);
+                $('#frm_ammount,#frm_due,#frm_due,#frm_inst_rate,#frm_payVat,#frm_payInt').val(0);
                 $('#frm_inst_no').val(1);
+                $('#totalBilled').html(product.sell_rate);
             }
         } else {
             Materialize.toast('You already Paid Out !',3000);
         }
     });
 
+    $('#frm_payVat').keyup(function(){
+        $('#totalBilled').html(parseInt($('#frm_payable').val())+parseInt($('#frm_payInt').val())+parseInt($(this).val()))
+    });
+    $('#frm_payInt').keyup(function(){
+        $('#totalBilled').html(parseInt($('#frm_payable').val())+parseInt($('#frm_payVat').val())+parseInt($(this).val()))
+    });
+
     $('#frm_ammount').keyup(function(){
-       $('#frm_due').val(parseInt($('#frm_payable').val())-parseInt($(this).val()));
+        $('#frm_due').val(parseInt($('#totalBilled').html())-parseInt($(this).val()));
     });
 
     $('#frm_inst_no').keyup(function(){
-       $('#frm_inst_rate').val(parseInt(parseInt($('#frm_due').val())/parseInt($(this).val())));
+        $('#frm_inst_rate').val(parseInt(parseInt($('#frm_due').val())/parseInt($(this).val())));
     });
 
     $('#install_ment_count').hide();
@@ -171,6 +179,7 @@ $(function(){
     $('#btn_payment_send').click(function(){
         if($('#form_sell_payment').valid()){
             var data = $('#form_sell_payment').serializeObject();
+            data['total_bill'] = $('#totalBilled').html();
             data['cus_id'] = sellX.customar.id;
             data['inv_id'] = sellX.product.id;
             data['is_due'] = sellX.isDue;
@@ -198,26 +207,66 @@ $(function(){
             });
         } else {
             Materialize.toast('You Already Paid Out',2000);
-            console.log(e);
         }
     });
 
     //------ Print Sell Report----------
 
     $('#print_report').click(function(){
-        if(sellX.payment_info == 0){
+        if(sellX.payment_info != 0){
             var customar = sellX.customar;
             var product = sellX.product;
             var info = sellX.payment_info;
-            //------ Show Customer Information -----------
+            var soldInfo = info.sold_info;
+            $('#rp_sold_date').html(soldInfo.sold_date);
+            //---------| Show Customer Information |-------
             $('#rp_cus_id').html(customar.id);
             $('#rp_cus_name').html(customar.first_name+" "+customar.last_name);
             $('#rp_cus_add').html(customar.address);
+            $('#rp_cus_f_name').html(customar.fat_name);
             $('#rp_cus_phone').html(customar.phone+", "+customar.phone2);
-            //--------- Product information block ----------
+            //---------| Product information block |--------
+            $('#rp_pro_name').html(product.product_name);
+            $('#rp_pro_cc').html(product.bike_cc);
+            $('#rp_pro_model').html(product.model);
             $('#rp_pro_eng_no').html(product.eng_no);
             $('#rp_pro_chs_no').html(product.chs_no);
-
+            //------------| Billed Info |---------------
+            $('#rp_bill_price').html(soldInfo.moto_price);
+            $('#rp_bill_vat').html(soldInfo.vat);
+            $('#rp_bill_Bcharge').html(soldInfo.bank_int);
+            $('#rp_bill_total').html(soldInfo.total_billed);
+            $('#rp_bill_paid').html(soldInfo.paid);
+            $('#rp_bill_due,#dec_due').html(soldInfo.due);
+            //-----------| Installment Table |----------
+            if(sellX.isDue){
+                var instNo = soldInfo.total_inst;
+                var instRate = soldInfo.rate;
+                var startDate = soldInfo.sold_date;
+                var markup = "";
+                for( i=0 ; i<Math.ceil(instNo/4) ; i++ ){
+                    markup += "<table>" +
+                        "<tr>" +
+                            "<th>SN</th>" +
+                            "<th>Date</th>" +
+                            "<th>rate</th>" +
+                        "</tr>";
+                    for( j=(i*4) ; j<Math.min(((i*4)+4),instNo) ; j++ ){
+                        var instDate = addDate(startDate,(j+1));
+                        markup += "<tr>" +
+                                "<td>"+(j+1)+"</td>" +
+                                "<td>"+instDate+"</td>" +
+                                "<td>"+instRate+"</td>" +
+                            "</tr>";
+                    }
+                    markup += "</table>";
+                }
+                //End For Table
+                $('#rp_installment_set').html(markup);
+            }else{
+                $('#rp_installment_set').html("No Interest Set");
+            }
+            //------------|-----|-----|-----------------
             $('body').html($('#cashReport').html());
             window.print();
         }else{
@@ -227,6 +276,66 @@ $(function(){
     window.onafterprint = function(){
         window.location.reload(true);
     }
+
+    //----------------- Customar Addition -------------
+    $('#show_customar_modal').click(function(){
+        $('#modal_addCustomar').openModal();
+    });
+
+    $('#btn_addCustomar').click(function(){
+        $('#form_addCustomar').submit();
+    });
+
+    $('#form_addCustomar').validate({
+        rules : {
+            cusFirstName : {
+                required: true,
+                minlength: 2
+            },
+            cusLastName : {
+                required: true,
+                minlength: 2,
+            },
+            cusAddress : {
+                required: true,
+                minlength: 5
+            },
+            cusEmail : {
+                email: true
+            },
+            cusPhone : {
+                required: true,
+                minlength: 11,
+                maxlength: 13
+            },
+            cusFatName : {
+                required: true,
+                minlength: 2
+            }
+        }
+    });
+
+    $('#form_addCustomar').submit(function(){
+        if($(this).valid()) {
+            $.post('/customar_add', $(this).serializeObject(), function (e) {
+                var status = JSON.parse(e);
+                if (status.error == 0 && status.success == 1) {
+                    $('#form_addCustomar input,#form_addCustomar textarea').val('');
+                    Materialize.toast("Successfully Customar Added", 2000);
+                    $.get('/customer/'+status.id,function(e){
+                        sellX.setCustomar(e);
+                        $('#cus_name').html(e.first_name +" "+ e.last_name);
+                        $('#cus_email').html(e.fat_name);
+                        $('#cus_phone').html(e.phone);
+                    });
+                } else {
+                    Materialize.toast("Sorry Submit Again Please", 2000);
+                }
+            });
+        }
+    });
+
+
 });
 
 //product added from product list;
@@ -258,3 +367,14 @@ $.fn.serializeObject = function()
     });
     return o;
 };
+
+//-------------- Add month for Installment -----------------
+
+function addDate(dstr,of){
+    var date = new Date(dstr);
+    var nexDate = new Date(date);
+    nexDate.setMonth(nexDate.getMonth()+of)
+    var newDate = new Date(nexDate);
+    return newDate.getFullYear()+"-"+(newDate.getMonth()+1)+"-"+newDate.getDate();
+}
+
