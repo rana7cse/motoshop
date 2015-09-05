@@ -150,8 +150,17 @@ class InventoryController extends \BaseController {
 
 	public function reportAll(){
 		$report = DB::select(
-			DB::raw("SELECT (SELECT product_name FROM product WHERE id=product_id) as product,count(product_id) as total FROM inventory WHERE is_sell = '0' GROUP BY product_id")
+			DB::raw("SELECT (SELECT product_name FROM product WHERE id=product_id) as product,product_id,count(product_id) as total FROM inventory WHERE is_sell = '0' GROUP BY product_id")
 		);
 		return View::make('product.report',compact('report'));
+	}
+
+	public function availableinv($id){
+		$data = DB::table('inventory')
+			->select('eng_no','chs_no')
+			->where('is_sell','=','0')
+			->where('product_id','=',$id)
+			->get();
+		return $data;
 	}
 }

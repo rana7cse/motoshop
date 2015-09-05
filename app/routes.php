@@ -57,6 +57,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('/inventory/prosearch/{id}', 'InventoryController@findName');
 	Route::get('/inventory/prosel/{id}', 'InventoryController@findProduct');
 	Route::get('/inventory/report/all', 'InventoryController@reportAll');
+	Route::get('/inventory/available/{id}','InventoryController@availableinv');
 	// --------- ORDER Transection Route ------------------
 	Route::get('/order', function () {
 		$status = array(
@@ -95,6 +96,10 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('/getInstllments', 'SellController@loanInfo');
 	Route::get('getLoanInfo/{id}', 'SellController@getInfo');
 	Route::post('/makeInstalment','SellController@payInstallment');
+
+	//------------- Print or View All Reports ---------------
+	Route::get('/report/inventory','ReportsController@inventory');
+	Route::get('/report/buy','ReportsController@inventory');
 });
 
 

@@ -13,7 +13,7 @@ class SellController extends \BaseController {
 			->join('customars','moto_sold.cus_id','=','customars.id')
 			->join('inventory','moto_sold.inv_id','=','inventory.id')
 			->join('product','inventory.product_id','=','product.id')
-			->select('moto_sold.id','moto_sold.price','moto_sold.paid','moto_sold.due','moto_sold.sold_date','moto_sold.payment_status','customars.first_name','customars.last_name','product.product_name')
+			->select('moto_sold.id','moto_sold.price','moto_sold.paid','inventory.eng_no','inventory.chs_no','moto_sold.due','moto_sold.sold_date','moto_sold.payment_status','customars.first_name','customars.last_name','product.product_name')
 			->whereBetween('sold_date',array($to,$form))->get();
 		$op=[];
 		foreach($data as $mata){
@@ -21,6 +21,8 @@ class SellController extends \BaseController {
 				$mata->id,
 				$mata->first_name." ".$mata->last_name,
 				$mata->product_name,
+				$mata->eng_no,
+				$mata->chs_no,
 				$mata->payment_status,
 				$mata->price,
 				$mata->paid,

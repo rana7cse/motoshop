@@ -21,7 +21,7 @@
                             @foreach($report as $list)
                                 <tr>
                                     <td>$</td>
-                                    <td>{{$list->product}}</td>
+                                    <td><a href="javascript:void(0)" onclick="viewList({{$list->product_id}})">{{$list->product}}</a></td>
                                     <td><b>{{$list->total}}</b></td>
                                 </tr>
                             @endforeach
@@ -34,7 +34,52 @@
                 $(function(){
                    $('#proTable').dataTable();
                 });
+                function viewList(id){
+                    $('#modal_show_item').openModal();
+                    $.get('/inventory/available/'+id,function(e){
+                        var outX = "";
+                        e.map(function(k){
+                            outX += '<tr>';
+                            outX += '<td>'+ k.chs_no+'</td>';
+                            outX += '<td>'+ k.eng_no+'</td>';
+                            outX += '</tr>';
+                        });
+                        $('#report_table_body').html(outX);
+                    });
+                    $('#show_table').dataTable({
+                        bDestroy : true,
+                        "bPaginate": false,
+                        "bFilter": true,
+                        "bInfo": false,
+                        "bSearchable":false,
+                        "iDisplayLength": 500,
+                        "bSort": false
+                    });
+                }
             </script>
+            <style>
+                .dataTables_filter, .dataTables_info { display: none; }
+            </style>
+            <div id="modal_show_item" class="modal modal_insertion">
+                <div class="modal_header">
+                    <h3 class="modal_title pull-left">Showing Available Product of <span id="pro_name"></span></h3>
+                    <a href="javascript:void(0)" class=" modal-action modal-close pull-right"><i class="fa fa-times"></i></a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal_body" style="padding: 10px">
+                    <table id="show_table" class="bordered striped">
+                        <thead>
+                            <tr>
+                                <th>Engine No</th>
+                                <th>Chases No</th>
+                            </tr>
+                        </thead>
+                        <tbody id="report_table_body">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 @stop

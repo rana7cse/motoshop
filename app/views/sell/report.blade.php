@@ -30,6 +30,8 @@
                             <th>ID</th>
                             <th>CUSTOMER</th>
                             <th>PRODUCT</th>
+                            <th>ENG NO</th>
+                            <th>CHS NO</th>
                             <th>PAY</th>
                             <th>PRICE</th>
                             <th>PAID</th>

@@ -892,6 +892,9 @@ button.btn_sell{
     background: #fff;
     margin: 0;
   }
+  .print_hide {
+    display: none;
+  }
   #button_back {
     display: none;
   }
@@ -1084,4 +1087,21 @@ button.btn_sell{
   color: #CBEFDF;
   font-weight: 600;
   font-size: 14px;
+}
+
+/*All Reports styles here */
+.reportTableWrapper {
+  padding: 10px;
+  background: #f8f8f8;
+  table {
+    border: 1px solid #e0dede;
+    td, th {
+      padding: 6px 10px;
+      display: table-cell;
+      text-align: left;
+      vertical-align: middle;
+      border-radius: 2px;
+      border: 1px solid #D2D1D1
+    }
+  }
 }
