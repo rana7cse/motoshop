@@ -13,5 +13,20 @@ $(function(){
         window.location.reload(true);
     }
 
-    //------------ Print Sell Product -----------
+    //------------ Print Buy Report -----------
+    $('#sellFilterTOdate,#sellFilterFormdate').pickadate({
+        selectMonths: true,
+        selectYears: 15,
+        format: 'yyyy-mm-dd',
+        max : 1
+    });
+
+    $('#print_buy_report').click(function(){
+        $('#reportTableWrapper')
+            .find('.title').show();
+        $('#reportTableWrapper')
+            .find('.print_hide').show();
+        $('body').html($('#reportTableWrapper').html());
+        window.print();
+    })
 });

@@ -99,7 +99,11 @@ Route::group(array('before' => 'auth'), function() {
 
 	//------------- Print or View All Reports ---------------
 	Route::get('/report/inventory','ReportsController@inventory');
+
 	Route::get('/report/buy','ReportsController@buyReport');
+	Route::post('/report/buy','ReportsController@buyReportByDate');
+
+	Route::get('/report/sell','ReportsController@sellReport');
 });
 
 

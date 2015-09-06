@@ -834,5 +834,9 @@ button.btn_sell {
       vertical-align: middle;
       border-radius: 2px;
       border: 1px solid #D2D1D1; }
+  .reportTableWrapper .picker__table td {
+    margin: 0;
+    padding: 0;
+    text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
