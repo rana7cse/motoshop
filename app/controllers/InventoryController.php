@@ -157,9 +157,10 @@ class InventoryController extends \BaseController {
 
 	public function availableinv($id){
 		$data = DB::table('inventory')
-			->select('eng_no','chs_no')
-			->where('is_sell','=','0')
-			->where('product_id','=',$id)
+			->join('product','product.id','=','inventory.product_id')
+			->select('inventory.eng_no','inventory.chs_no','product.product_name')
+			->where('inventory.is_sell','=','0')
+			->where('inventory.product_id','=',$id)
 			->get();
 		return $data;
 	}

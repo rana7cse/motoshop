@@ -8,3 +8,5 @@ composer.lock
 Thumbs.db
 .idea
 db_backup
+app.zip
+public.zip

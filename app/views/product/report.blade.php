@@ -38,11 +38,15 @@
                     $('#modal_show_item').openModal();
                     $.get('/inventory/available/'+id,function(e){
                         var outX = "";
+                        var count = 0;
                         e.map(function(k){
                             outX += '<tr>';
+                            outX += '<td>'+ (count+1) + '</td>';
+                            outX += '<td>'+ k.product_name + '</td>';
                             outX += '<td>'+ k.chs_no+'</td>';
                             outX += '<td>'+ k.eng_no+'</td>';
                             outX += '</tr>';
+                            count++;
                         });
                         $('#report_table_body').html(outX);
                     });
@@ -70,6 +74,8 @@
                     <table id="show_table" class="bordered striped">
                         <thead>
                             <tr>
+                                <th>SN</th>
+                                <th>Name</th>
                                 <th>Engine No</th>
                                 <th>Chases No</th>
                             </tr>

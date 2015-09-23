@@ -104,6 +104,24 @@ Route::group(array('before' => 'auth'), function() {
 	Route::post('/report/buy','ReportsController@buyReportByDate');
 
 	Route::get('/report/sell','ReportsController@sellReport');
+
+	//---------------------- Get Invoice ---------------------
+	Route::get('/invoice/{id}',function($id){
+		$sold_info = DB::table('moto_sold')->where('id',$id)->first();
+		$customar_info = DB::table('customars')->where('id',$sold_info->cus_id)->first();
+        $loan_info = DB::table('car_loan')->where('sold_id',$id)->first();
+        $product_info = DB::table('inventory')
+            ->join('product','inventory.product_id','=','product.id')
+            ->select('product.product_name','product.bike_cc','product.model','inventory.eng_no','inventory.chs_no')
+            ->where('inventory.id',$sold_info->inv_id)
+            ->first();
+        return [
+            'sold_info' => $sold_info,
+            'customar_info' => $customar_info,
+            'loan_info' => $loan_info,
+            'product'   => $product_info
+        ];
+	});
 });
 
 

@@ -27,7 +27,8 @@ class SellController extends \BaseController {
 				$mata->price,
 				$mata->paid,
 				$mata->due,
-				$mata->sold_date
+				$mata->sold_date,
+				"puck"
 			];
 		}
 		return ['data'=>$op];

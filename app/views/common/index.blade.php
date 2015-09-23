@@ -35,6 +35,7 @@
 
     </div>
 </div>
+@yield('hidden_sect')
 <script src="{{asset('js/script.js')}}"></script>
 @yield('page_script')
 </body>
