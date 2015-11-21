@@ -37,6 +37,7 @@
                 function viewList(id){
                     $('#modal_show_item').openModal();
                     $.get('/inventory/available/'+id,function(e){
+                        //console.log(e);
                         var outX = "";
                         var count = 0;
                         e.map(function(k){
@@ -45,6 +46,10 @@
                             outX += '<td>'+ k.product_name + '</td>';
                             outX += '<td>'+ k.chs_no+'</td>';
                             outX += '<td>'+ k.eng_no+'</td>';
+                            outX += '<td>'+ k.model +'</td>';
+                            outX += '<td>'+ k.color +'</td>';
+                            outX += '<td>'+ k.created_at.split(" ")[0]+'</td>';
+                            outX += '<td>'+ k.buy_rate +'</td>';
                             outX += '</tr>';
                             count++;
                         });
@@ -78,6 +83,10 @@
                                 <th>Name</th>
                                 <th>Engine No</th>
                                 <th>Chases No</th>
+                                <th>Model</th>
+                                <th>color</th>
+                                <th>buy Date</th>
+                                <th>Rate</th>
                             </tr>
                         </thead>
                         <tbody id="report_table_body">

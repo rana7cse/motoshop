@@ -105,6 +105,11 @@ Route::group(array('before' => 'auth'), function() {
 
 	Route::get('/report/sell','ReportsController@sellReport');
 
+	//------------- REFERANCE SECTION -----------------
+	Route::post('/referance/add','ReferanceController@create');
+	Route::get('/referance/all','ReferanceController@index');
+	Route::get('/referance/{id}','ReferanceController@show');
+
 	//---------------------- Get Invoice ---------------------
 	Route::get('/invoice/{id}',function($id){
 		$sold_info = DB::table('moto_sold')->where('id',$id)->first();

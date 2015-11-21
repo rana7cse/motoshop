@@ -14,11 +14,11 @@ class CustomarController extends \BaseController {
 		foreach($all as $data){
 			$op[] = array(
 				"{$data->id}",
-				$data->first_name." ".$data->last_name,
+				$data->first_name,
+				$data->fat_name,
+				$data->thana,
+				$data->zilla,
 				$data->phone,
-				$data->email,
-				$data->address,
-				"{$data->created_at}",
 				"action"
 			);
 		}
@@ -34,21 +34,28 @@ class CustomarController extends \BaseController {
 	public function create()
 	{
 		$input = Input::all();
-		$data = array(
-			'first_name' 	=> $input['cusFirstName'],
-    		'last_name' 	=> $input['cusLastName'],
-    		'address' 		=> $input['cusAddress'],
-    		'email' 		=> $input['cusEmail'],
-    		'phone' 		=> $input['cusPhone'],
-    		'phone2' 		=> $input['cusPhone2'],
-    		'fat_name'		=> $input['cusFatName']
-		);
-		$insert = Customar::create($data);
-		if($insert){
-			return json_encode(array('error'=>0,'success'=>1, 'id' => $insert->id));
-		} else {
-			return json_encode(array('error'=>1,'success'=>0));
+		try{
+			$data = array(
+					'first_name'	=>$input['cusFirstName'],
+					'fat_name'		=>$input['cusFatName'],
+					'address'		=>$input['cusAddress'],
+					'thana'			=>$input['cusAddThana'],
+					'zilla'			=>$input['cusAddZilla'],
+					'division'		=>$input['cusAddDivision'],
+					'phone'			=>$input['cusPhone'],
+					'phone2'		=>$input['cusPhone2'],
+					'email'			=>$input['cusEmail']
+			);
+			$insert = Customar::create($data);
+			if($insert){
+				return json_encode(array('error'=>0,'success'=>1, 'id' => $insert->id));
+			} else {
+				return json_encode(array('error'=>1,'success'=>0));
+			}
+		}catch (Exception $e){
+			echo $e->getMessage();
 		}
+
 	}
 
 	/**
@@ -76,13 +83,15 @@ class CustomarController extends \BaseController {
 		$input = Input::all();
 		$id = $input['rowId'];
 		$data = array(
-			'first_name' 	=> $input['ceditFirstName'],
-			'last_name' 	=> $input['ceditLastName'],
-			'address' 		=> $input['ceditAddress'],
-			'email' 		=> $input['ceditEmail'],
-			'phone' 		=> $input['ceditPhone'],
-			'phone2' 		=> $input['ceditPhone2'],
-			'nid_no'		=> $input['ceditNid']
+				'first_name'	=>$input['edit_cusFirstName'],
+				'fat_name'		=>$input['edit_cusFatName'],
+				'address'		=>$input['edit_cusAddress'],
+				'thana'			=>$input['edit_cusAddThana'],
+				'zilla'			=>$input['edit_cusAddZilla'],
+				'division'		=>$input['edit_cusAddDivision'],
+				'phone'			=>$input['edit_cusPhone'],
+				'phone2'		=>$input['edit_cusPhone2'],
+				'email'			=>$input['edit_cusEmail']
 		);
 		$update = Customar::where('id','=',$id)->update($data);
 		if($update){

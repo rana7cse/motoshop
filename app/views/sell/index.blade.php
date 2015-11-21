@@ -3,7 +3,8 @@
     <div class="main-page__body">
         <div class="title">
             <h2 class="pull-left">Select And Sell Your Product</h2>
-            <button class="btn btn-add pull-right waves-effect waves-light" id="show_customar_modal">Add Customar</button>
+            <button class="btn btn-add pull-right waves-effect waves-light" id="show_referance_modal" style="margin-left: 10px;">New Referance</button>
+            <button class="btn btn-add orange pull-right waves-effect waves-light" id="show_customar_modal">New Customar</button>
             <div class="clearfix"></div>
         </div>
         <div class="sectionX product_start">
@@ -22,6 +23,14 @@
                                 </div>
                             <div class="search">
                                 <div class="label">
+                                    Search Referance :
+                                </div>
+                                <select name="searchReferance" id="searchReferance" class="browser-default">
+                                    <option value="">Select Referance</option>
+                                </select>
+                            </div>
+                            <div class="search">
+                                <div class="label">
                                     Customar Info :
                                     <button class="clear_panel pull-right" id="clearCustomer">
                                         <i class="fa fa-recycle"></i>
@@ -38,6 +47,9 @@
                                         </li>
                                         <li>
                                             <label>Phone</label><span id="cus_phone">NA</span>
+                                        </li>
+                                        <li>
+                                            <label>Referance</label><span id="cus_refer">NA</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -212,7 +224,7 @@
                 </div>
         </div>
     </div>
-
+    {{--AddNewCustomer--}}
     <div id="modal_addCustomar" class="modal modal_insertion">
         <div class="modal_header">
             <h3 class="modal_title pull-left">Add a new customer</h3>
@@ -223,20 +235,28 @@
             <div class="insert_form row">
                 <form action="javascript:void(0)" id="form_addCustomar">
                     <div class="input-field col s6">
-                        <input placeholder="Enter first name" id="cusFirstName" type="text" name="cusFirstName">
-                        <label for="cusFirstName">First Name :</label>
+                        <input placeholder="Customar Name" id="cusFirstName" type="text" name="cusFirstName">
+                        <label for="cusFirstName">Customar Name</label>
                     </div>
                     <div class="input-field col s6">
-                        <input placeholder="Enter first name" id="cusLastName" type="text" name="cusLastName">
-                        <label for="cusLastName">Last Name :</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <textarea placeholder="Enter address" id="cusAddress" name="cusAddress" class="materialize-textarea"></textarea>
-                        <label for="eng_no">Address :</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input placeholder="Enter father Name" id="cusFatName" type="text" name="cusFatName">
+                        <input placeholder="Father Name" id="cusFatName" type="text" name="cusFatName">
                         <label for="cusLastName">Father Name :</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Road,Village,Post" type="text" id="cusAddress" name="cusAddress" />
+                        <label for="eng_no">Village/Post :</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Thana/Upzilla" type="text" id="cusAddThana" name="cusAddThana" />
+                        <label for="eng_no">Thana/Upzilla</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Zilla Name" type="text" id="cusAddZilla" name="cusAddZilla" />
+                        <label for="eng_no">Zilla :</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Division Name" id="cusAddDivision" type="text" name="cusAddDivision">
+                        <label for="cusLastName">Division</label>
                     </div>
                     <div class="input-field col s6">
                         <input placeholder="Enter Email ID" id="cusEmail" type="text" name="cusEmail">
@@ -262,7 +282,55 @@
             <div class="btn btn-flat submit" id="btn_addCustomar">Submit</div>
         </div>
     </div>
+    {{--AddNewCustomer--}}
 
+    {{--AddNewReferance--}}
+    <div id="modal_addReferance" class="modal modal_insertion">
+        <div class="modal_header">
+            <h3 class="modal_title pull-left">Add a new Referance</h3>
+            <a href="javascript:void(0)" class=" modal-action modal-close pull-right"><i class="fa fa-times"></i></a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="modal_body">
+            <div class="insert_form row">
+                <form action="javascript:void(0)" id="form_addReferance">
+                    <div class="input-field col s6">
+                        <input placeholder="Referance Name" id="refName" type="text" name="refName">
+                        <label for="cusFirstName">Referance Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Father Name" id="refFather" type="text" name="refFather">
+                        <label for="cusLastName">Father Name :</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Road,Village,Post" type="text" id="refVillage" name="refVillage" />
+                        <label for="eng_no">Village/Post :</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Thana/Upzilla" type="text" id="refThana" name="refThana" />
+                        <label for="eng_no">Thana/Upzilla</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Zilla Name" type="text" id="refZilla" name="refZilla" />
+                        <label for="eng_no">Zilla :</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Phone/Mobile No" id="refPhone" type="text" name="refPhone">
+                        <label for="eng_no">Phone/Mobile No :</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Phone/Mobile No" id="refPhone2" type="text" name="refPhone2">
+                        <label for="eng_no">Phone2/Mobile2 No :</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal_footer">
+            <div class="btn btn-flat reset">Reset</div>
+            <div class="btn btn-flat submit" id="btn_addReferance">Submit</div>
+        </div>
+    </div>
+    {{--AddnewReferance--}}
     <div id="cashReport">
         <a href="{{url('/sell')}}" class="btn btn-large" id="button_back"> Complete </a>
         <div class="mr_report">
@@ -309,7 +377,22 @@
                     <div class="box_50 pull_right">
                         <div class="title">Referance :</div>
                         <div class="info">
-
+                            <div class="info">
+                                <ul>
+                                    <li>
+                                        <label>Name</label><span id="rp_ref_name"></span>
+                                    </li>
+                                    <li>
+                                        <label>Father Name</label><span id="rp_ref_f_name"></span>
+                                    </li>
+                                    <li>
+                                        <label>Address </label><span id="rp_ref_add"></span>
+                                    </li>
+                                    <li>
+                                        <label>Phone </label><span id="rp_ref_phone"></span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="clear_fix"></div>

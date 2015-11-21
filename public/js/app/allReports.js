@@ -28,5 +28,8 @@ $(function(){
             .find('.print_hide').show();
         $('body').html($('#reportTableWrapper').html());
         window.print();
-    })
+    });
+    $('#inventory_report').dataTable({
+
+    });
 });

@@ -24,7 +24,7 @@ class ReportsController extends \BaseController {
 		$lastDay = $lastDay->year.'-'.$lastDay->month.'-'.$lastDay->day;
 		$all = DB::table('inventory')
 			->join('product','product.id','=','inventory.product_id')
-			->select('inventory.id','inventory.created_at','inventory.eng_no','inventory.chs_no','inventory.is_sell','inventory.color','inventory.sell_rate','product.product_name')
+			->select('inventory.id','inventory.created_at','inventory.eng_no','inventory.chs_no','inventory.is_sell','inventory.color','inventory.sell_rate','product.product_name','product.model')
 			->whereBetween('inventory.created_at',array($lastDay,$today))
 			->get();
 		$kopa = [
@@ -41,7 +41,7 @@ class ReportsController extends \BaseController {
 		$form = $inputs['to'];
 		$all = DB::table('inventory')
 			->join('product','product.id','=','inventory.product_id')
-			->select('inventory.id','inventory.created_at','inventory.eng_no','inventory.chs_no','inventory.is_sell','inventory.color','inventory.sell_rate','product.product_name')
+			->select('inventory.id','inventory.created_at','inventory.eng_no','inventory.chs_no','inventory.is_sell','inventory.color','inventory.sell_rate','product.product_name','product.model')
 			->whereBetween('inventory.created_at',array($to,$form))
 			->get();
 		$kopa = [
@@ -49,6 +49,7 @@ class ReportsController extends \BaseController {
 			'form' => $form,
 			'data' => $all
 		];
+		//print_r($kopa);
 		return View::make('report.buy',compact('kopa'));
 	}
 

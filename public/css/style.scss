@@ -1110,3 +1110,13 @@ button.btn_sell{
     text-align: center;
   }
 }
+
+.modal.bottom-sheet {
+  top: auto;
+  bottom: -100%;
+  margin: 0px;
+  width: 100%;
+  max-height: 60%;
+  border-radius: 0px;
+  will-change: bottom, opacity;
+}

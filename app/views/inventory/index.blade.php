@@ -134,13 +134,17 @@
                             <option value="green">Green</option>
                         </select>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s4">
                         <input placeholder="Buy Rate" id="pro_buy_rate" type="text" name="pro_buy_rate">
                         <label for="pro_buy_rate">Buy rate</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s4">
                         <input placeholder="Sell Rate" id="pro_sell_rate" type="text" name="pro_sell_rate">
                         <label for="pro_sell_rate">Sell Rate</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Comission" id="pro_comi_rate" type="text" name="pro_comi_rate">
+                        <label for="pro_sell_rate">Comission</label>
                     </div>
                     <div class="input-field col s6">
                         <input placeholder="Placeholder" id="pro_quantity" type="text" name="pro_quantity" value="1" disabled>

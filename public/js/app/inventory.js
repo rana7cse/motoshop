@@ -86,7 +86,19 @@ $(function(){
         rules : {
             eng_no : "required",
             chs_no : "required",
-            pro_name : "required"
+            pro_name : "required",
+            pro_buy_rate : {
+                "required"  : true,
+                "number"    : true
+            },
+            pro_sell_rate : {
+                "required"  : true,
+                "number"    : true
+            },
+            pro_comi_rate : {
+                "required"  : true,
+                "number"    : true
+            }
         }
     });
 

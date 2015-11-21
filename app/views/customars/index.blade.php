@@ -19,10 +19,10 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>phone</th>
-                                        <th>Email</th>
-                                        <th>address</th>
-                                        <th>Date</th>
+                                        <th>Father</th>
+                                        <th>Thana</th>
+                                        <th>Zilla</th>
+                                        <th>Phone</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -38,32 +38,40 @@
                                             <form action="javascript:void(0)" id="form_updateCustomer">
                                                 <input type="hidden" name="rowId" id="ceditRowId">
                                                 <div class="input-field col s3">
-                                                    <input placeholder="Enter first name" id="ceditFirstName" type="text" name="ceditFirstName">
-                                                    <label for="ceditFirstName">First Name :</label>
+                                                    <input placeholder="Customar Name" id="edit_cusFirstName" type="text" name="edit_cusFirstName">
+                                                    <label for="cusFirstName">Customar Name</label>
                                                 </div>
                                                 <div class="input-field col s3">
-                                                    <input placeholder="Enter first name" id="ceditLastName" type="text" name="ceditLastName">
-                                                    <label for="ceditLastName">Last Name :</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input placeholder="Enter address" id="ceditAddress" name="ceditAddress" type="text"/>
-                                                    <label for="eng_no">Address :</label>
+                                                    <input placeholder="Father Name" id="edit_cusFatName" type="text" name="edit_cusFatName">
+                                                    <label for="cusLastName">Father Name :</label>
                                                 </div>
                                                 <div class="input-field col s3">
-                                                    <input placeholder="Enter Email ID" id="ceditEmail" type="text" name="ceditEmail">
+                                                    <input placeholder="Road,Village,Post" type="text" id="edit_cusAddress" name="edit_cusAddress" />
+                                                    <label for="eng_no">Village/Post :</label>
+                                                </div>
+                                                <div class="input-field col s3">
+                                                    <input placeholder="Thana/Upzilla" type="text" id="edit_cusAddThana" name="edit_cusAddThana" />
+                                                    <label for="eng_no">Thana/Upzilla</label>
+                                                </div>
+                                                <div class="input-field col s2">
+                                                    <input placeholder="Zilla Name" type="text" id="edit_cusAddZilla" name="edit_cusAddZilla" />
+                                                    <label for="eng_no">Zilla :</label>
+                                                </div>
+                                                <div class="input-field col s2">
+                                                    <input placeholder="Division Name" id="edit_cusAddDivision" type="text" name="edit_cusAddDivision">
+                                                    <label for="cusLastName">Division</label>
+                                                </div>
+                                                <div class="input-field col s3">
+                                                    <input placeholder="Enter Email ID" id="edit_cusEmail" type="text" name="edit_cusEmail">
                                                     <label for="eng_no">Email Address :</label>
                                                 </div>
-                                                <div class="input-field col s3">
-                                                    <input placeholder="Phone/Mobile No" id="ceditPhone" type="text" name="ceditPhone">
+                                                <div class="input-field col s2">
+                                                    <input placeholder="Phone/Mobile No" id="edit_cusPhone" type="text" name="edit_cusPhone">
                                                     <label for="eng_no">Phone/Mobile No :</label>
                                                 </div>
                                                 <div class="input-field col s3">
-                                                    <input placeholder="Phone/Mobile No" id="ceditPhone2" type="text" name="ceditPhone2">
+                                                    <input placeholder="Phone/Mobile No" id="edit_cusPhone2" type="text" name="edit_cusPhone2">
                                                     <label for="eng_no">Phone2/Mobile2 No :</label>
-                                                </div>
-                                                <div class="input-field col s3">
-                                                    <input placeholder="National ID" id="ceditNid" type="text" name="ceditNid">
-                                                    <label for="eng_no">National ID :</label>
                                                 </div>
                                             </form>
                                         </div>
@@ -87,20 +95,28 @@
                                     <div class="insert_form row">
                                         <form action="javascript:void(0)" id="form_addCustomar">
                                             <div class="input-field col s6">
-                                                <input placeholder="Enter first name" id="cusFirstName" type="text" name="cusFirstName">
-                                                <label for="cusFirstName">First Name :</label>
+                                                <input placeholder="Customar Name" id="cusFirstName" type="text" name="cusFirstName">
+                                                <label for="cusFirstName">Customar Name</label>
                                             </div>
                                             <div class="input-field col s6">
-                                                <input placeholder="Enter first name" id="cusLastName" type="text" name="cusLastName">
-                                                <label for="cusLastName">Last Name :</label>
+                                                <input placeholder="Father Name" id="cusFatName" type="text" name="cusFatName">
+                                                <label for="cusLastName">Father Name :</label>
                                             </div>
-                                            <div class="input-field col s12">
-                                                <textarea placeholder="Enter address" id="cusAddress" name="cusAddress" class="materialize-textarea"></textarea>
-                                                <label for="eng_no">Address :</label>
+                                            <div class="input-field col s4">
+                                                <input placeholder="Road,Village,Post" type="text" id="cusAddress" name="cusAddress" />
+                                                <label for="eng_no">Village/Post :</label>
+                                            </div>
+                                            <div class="input-field col s4">
+                                                <input placeholder="Thana/Upzilla" type="text" id="cusAddThana" name="cusAddThana" />
+                                                <label for="eng_no">Thana/Upzilla</label>
+                                            </div>
+                                            <div class="input-field col s4">
+                                                <input placeholder="Zilla Name" type="text" id="cusAddZilla" name="cusAddZilla" />
+                                                <label for="eng_no">Zilla :</label>
                                             </div>
                                             <div class="input-field col s6">
-                                                <input placeholder="Enter father Name" id="cusFatName" type="text" name="cusFatName">
-                                                <label for="cusLastName">Last Name :</label>
+                                                <input placeholder="Division Name" id="cusAddDivision" type="text" name="cusAddDivision">
+                                                <label for="cusLastName">Division</label>
                                             </div>
                                             <div class="input-field col s6">
                                                 <input placeholder="Enter Email ID" id="cusEmail" type="text" name="cusEmail">

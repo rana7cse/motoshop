@@ -50,6 +50,7 @@ class InventoryController extends \BaseController {
 			'quantity' => 1,
 			'buy_rate' => $item['pro_buy_rate'],
 			'sell_rate' => $item['pro_sell_rate'],
+			'comision_tk'  =>	$item['pro_comi_rate'],
 			'img' => 'NA',
 			'item_no' => 'NA',
 			'supplyir_id' => $item['supplyir_id']
@@ -158,7 +159,7 @@ class InventoryController extends \BaseController {
 	public function availableinv($id){
 		$data = DB::table('inventory')
 			->join('product','product.id','=','inventory.product_id')
-			->select('inventory.eng_no','inventory.chs_no','product.product_name')
+			->select('inventory.buy_rate','inventory.eng_no','inventory.chs_no','product.product_name','product.model','inventory.color','inventory.created_at')
 			->where('inventory.is_sell','=','0')
 			->where('inventory.product_id','=',$id)
 			->get();

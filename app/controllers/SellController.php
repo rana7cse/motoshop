@@ -43,7 +43,8 @@ class SellController extends \BaseController {
 	public function create()
 	{
 		$input = Input::all();
-		$dateX = \Carbon\Carbon::now();
+		print_r($input);
+		/*$dateX = \Carbon\Carbon::now();
 		$p_status = $input['payment_status'];
 		$data = [
 			'price'				=>	$input['frm_payable'],
@@ -59,9 +60,9 @@ class SellController extends \BaseController {
 			'bank_int'			=> $input['frm_payInt'],
 			'total_billed'		=> $input['total_bill']
 
-		];
+		];*/
 
-		if($p_status == 'cash'){
+		/*if($p_status == 'cash'){
 			if($data['due'] != 0){
 				return [
 					'data' => 0,
@@ -146,7 +147,7 @@ class SellController extends \BaseController {
 				'massage' => 'Success to payment',
 				'status' => 1
 			];
-		}
+		}*/
 	}
 
 
@@ -161,12 +162,12 @@ class SellController extends \BaseController {
 			->join('inventory','inventory.id','=','moto_sold.inv_id')
 			->join('product','product.id','=','inventory.product_id')
 			->join('customars','customars.id','=','moto_sold.cus_id')
-			->select('car_loan.id','customars.first_name','customars.last_name','moto_sold.cus_id',
+			->select('car_loan.id','customars.first_name','moto_sold.cus_id',
 				'product.product_name','car_loan.current_due','car_loan.rate','car_loan.next_pay_date',
 				'car_loan.current_inst','moto_sold.sold_date')->get();
 		$op = [];
 		foreach($info as $list){
-			$op[] = [$list->id,$list->first_name." ".$list->last_name." ( ".$list->cus_id." )",$list->product_name,$list->current_due,$list->rate,$list->next_pay_date,$list->current_inst,$list->sold_date,"Action"];
+			$op[] = [$list->id,$list->first_name." ( ".$list->cus_id." )",$list->product_name,$list->current_due,$list->rate,$list->next_pay_date,$list->current_inst,$list->sold_date,"Action"];
 		}
 		return ['data' => $op];
 	}

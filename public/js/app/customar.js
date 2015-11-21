@@ -3,16 +3,7 @@ $(function(){
       /*
       * INIT CUSTOMAR TABLE
       * */
-    $('#customarTable').dataTable({
-        "ajax": '/customar_all',
-        "bDestroy": true,
-        "fnRowCallback": function(e,m,j){
-            $('td:eq(6)',e).html(
-                "<a href='javascript:void(0)' class='data_pro_edit' onclick='editCustomar("+m[0]+")'>Edit</a>" +
-                "<a href='javascript:void(0)' class='data_pro_del' onclick='delCustomar("+m[0]+")'>Delete</a>"
-            );
-        }
-    });
+    loadCustomers();
 
 
     /*
@@ -48,7 +39,10 @@ $(function(){
                 required: true,
                 minlength: 11,
                 maxlength: 13
-            }
+            },
+            cusAddThana : "required",
+            cusAddZilla : "required",
+            cusAddDivision : "required"
         }
     });
 
@@ -56,11 +50,13 @@ $(function(){
         if($(this).valid()) {
             $.post('/customar_add', $(this).serializeObject(), function (e) {
                 var status = JSON.parse(e);
+                //console.log(e);
                 if (status.error == 0 && status.success == 1) {
                     $('#form_addCustomar input,#form_addCustomar textarea').val('');
-                    Materialize.toast("Successfully Customar Added", 4000);
+                    Materialize.toast("Successfully Customar Added", 3000);
+                    loadCustomers();
                 } else {
-                    Materialize.toast("Sorry Submit Again Please", 4000);
+                    Materialize.toast("Sorry Submit Again Please", 3000);
                 }
             });
         }
@@ -76,26 +72,29 @@ $(function(){
 
     $('#form_updateCustomer').validate({
         rules : {
-            ceditFirstName : {
+            edit_cusFirstName : {
                 required: true,
                 minlength: 2
             },
-            ceditLastName : {
+            edit_cusLastName : {
                 required: true,
                 minlength: 2,
             },
-            ceditAddress : {
+            edit_cusAddress : {
                 required: true,
                 minlength: 5
             },
-            ceditEmail : {
+            edit_cusEmail : {
                 email: true
             },
-            ceditPhone : {
+            edit_cusPhone : {
                 required: true,
                 minlength: 11,
                 maxlength: 13
-            }
+            },
+            edit_cusAddThana : "required",
+            edit_cusAddZilla : "required",
+            edit_cusAddDivision : "required"
         }
     });
 
@@ -107,9 +106,12 @@ $(function(){
         if($(this).valid()) {
             $.post('/customar/update',$(this).serializeObject(),function(e){
                 var status = JSON.parse(e);
+                //console.log(e);
                 if (status.error == 0 && status.success == 1) {
                     $('#form_addCustomar input,#form_addCustomar textarea').val('');
                     Materialize.toast("Successfully Customer Updated", 4000);
+                    $('#modal_editCustomer').closeModal();
+                    loadCustomers();
                 } else {
                     Materialize.toast("Check and Submit Again Please", 4000);
                 }
@@ -127,13 +129,15 @@ function editCustomar(id){
     $.get('/customer/'+id,function(e){
         $('#modal_editCustomer').openModal();
         $('#ceditRowId').val(e.id);
-        $('#ceditFirstName').val(e.first_name);
-        $('#ceditLastName').val(e.last_name);
-        $('#ceditAddress').val(e.address);
-        $('#ceditEmail').val(e.email);
-        $('#ceditPhone').val(e.phone);
-        $('#ceditPhone2').val(e.phone2);
-        $('#ceditNid').val(e.nid_no);
+        $('#edit_cusFirstName').val(e.first_name);
+        $('#edit_cusFatName').val(e.fat_name);
+        $('#edit_cusAddress').val(e.address);
+        $('#edit_cusAddThana').val(e.thana);
+        $('#edit_cusAddZilla').val(e.zilla);
+        $('#edit_cusAddDivision').val(e.division);
+        $('#edit_cusEmail').val(e.email);
+        $('#edit_cusPhone').val(e.phone);
+        $('#edit_cusPhone2').val(e.phone2);
     });
 }
 
@@ -146,6 +150,20 @@ function delCustomar(id){
 function customarDel(id){
     $.get('/customer/del/'+id,function(e){
         Materialize.toast(e,2000);
+        loadCustomers();
+    });
+}
+
+function loadCustomers(){
+    $('#customarTable').dataTable({
+        "ajax": '/customar_all',
+        "bDestroy": true,
+        "fnRowCallback": function(e,m,j){
+            $('td:eq(6)',e).html(
+                "<a href='javascript:void(0)' class='data_pro_edit' onclick='editCustomar("+m[0]+")'>Edit</a>" +
+                "<a href='javascript:void(0)' class='data_pro_del' onclick='delCustomar("+m[0]+")'>Delete</a>"
+            );
+        }
     });
 }
 

@@ -32,9 +32,10 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Product</th>
+                                <th>Model</th>
+                                <th>Color</th>
                                 <th>Engine No</th>
                                 <th>Chases No</th>
-                                <th>Color</th>
                                 <th>Sell Rate</th>
                             </tr>
                         </thead>
@@ -43,9 +44,10 @@
                                 <tr>
                                     <td>{{$data->id}}</td>
                                     <td>{{$data->product_name}}</td>
+                                    <td>{{$data->model}}</td>
+                                    <td>{{$data->color}}</td>
                                     <td>{{$data->eng_no}}</td>
                                     <td>{{$data->chs_no}}</td>
-                                    <td>{{$data->color}}</td>
                                     <td>{{$data->sell_rate}}</td>
                                 </tr>
                             @endforeach

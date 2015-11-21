@@ -3,6 +3,7 @@ var sellX = {
     product : 0,
     isDue : false,
     payment_info : 0,
+    referance : 0,
 
     setCustomar : function(input){
         this.customar = input;
@@ -19,6 +20,47 @@ var sellX = {
 };
 
 $(function(){
+    //------Add Referacne----------
+    $('#show_referance_modal').click(function(){
+        $('#modal_addReferance').openModal();
+    });
+
+    $('#form_addReferance').validate({
+       rules : {
+           refName : "required",
+           refFather : "required",
+           refVillage : "required",
+           refThana : "required",
+           refZilla : "required",
+           refPhone : {
+               required : true,
+               number   : true
+           },
+           refPhone2 : {
+               required : true,
+               number   : true
+           }
+       }
+    });
+
+    // -------------Add Referance---------
+    $('#btn_addReferance').click(function(){
+        if($('#form_addReferance').valid()){
+            $.post('/referance/add',$('#form_addReferance').serializeObject(),function(e){
+                var status = JSON.parse(e);
+                if (status.error == 0 && status.success == 1) {
+                    $('#form_addReferance input,#form_addCustomar textarea').val('');
+                    $('#modal_addReferance').closeModal();
+                    sellX.referance = status.id;
+                    $('#cus_refer').html(status.id.ref_name);
+                    Materialize.toast("Successfully Referacne Added", 3000);
+                } else {
+                    Materialize.toast("Sorry Submit Again Please", 3000);
+                }
+            });
+        }
+    });
+
     //------ Load Customer List --------
     $.get('/customar_all',function(e){
         var lists = JSON.parse(e).data;
@@ -29,6 +71,17 @@ $(function(){
                 "</option>");
         });
         $('#searchCustomar').chosen();
+    });
+
+    $.get('/referance/all',function(e){
+        var lists = JSON.parse(e).data;
+        lists.map(function(k){
+            $('#searchReferance').append("" +
+                "<option value='"+k[0]+"'>" +
+                k[1] + " ( " +k[2]+" ) "+
+                "</option>");
+        });
+        $('#searchReferance').chosen();
     });
 
     //------ Load Product list --------
@@ -81,6 +134,20 @@ $(function(){
         }
     });
 
+    //-------Select Referance---------
+    $('#searchReferance').change(function(){
+        var id = $(this).val();
+        if(id != ""){
+            $.get('/referance/'+id,function(e){
+                sellX.referance = e ;
+                $('#cus_refer').html(e.ref_name);
+            });
+        } else {
+            $('#cus_refer').html("NA");
+            $('#searchReferance').val('');
+            sellX.referance = 0;
+        }
+    });
     // --- Select Product -----------
 
     //----- Clear Customar And Product -------
@@ -112,7 +179,7 @@ $(function(){
                 $('#modal_product_sell').openModal();
                 var customar = sellX.getCustomar();
                 var product = sellX.getProduct();
-                $('#payCusName').html(customar.first_name+" "+customar.last_name);
+                $('#payCusName').html(customar.first_name);
                 $('#payCusPhone').html(customar.phone);
                 $('#payCusId').html(customar.id);
                 $('#payCusEmail').html(customar.email);
@@ -183,8 +250,10 @@ $(function(){
             data['cus_id'] = sellX.customar.id;
             data['inv_id'] = sellX.product.id;
             data['is_due'] = sellX.isDue;
+            data['ref_id'] = (sellX.referance.hasOwnProperty('id')) ? sellX.referance.id : 0;
             $.post('/sell/make',data,function(e){
-                if(e.data == 0 && e.status == 0){
+                console.log(e);
+                /*if(e.data == 0 && e.status == 0){
                     Materialize.toast(e.massage,2000);
                 } else if(e.data != 0 && e.status == 1){
                     $('#modal_product_sell').closeModal();
@@ -203,7 +272,7 @@ $(function(){
                     });
                 } else {
                     Materialize.toast('Something Wrong Please Contact Web Master',3000);
-                }
+                }*/
             });
         } else {
             Materialize.toast('You Already Paid Out',2000);
@@ -218,13 +287,22 @@ $(function(){
             var product = sellX.product;
             var info = sellX.payment_info;
             var soldInfo = info.sold_info;
+            var refX = sellX.referance;
             $('#rp_sold_date').html(soldInfo.sold_date);
             //---------| Show Customer Information |-------
             $('#rp_cus_id').html(customar.id);
-            $('#rp_cus_name').html(customar.first_name+" "+customar.last_name);
-            $('#rp_cus_add').html(customar.address);
+            $('#rp_cus_name').html(customar.first_name);
+            $('#rp_cus_add').html(customar.address+", "+customar.thana+", "+customar.zilla);
             $('#rp_cus_f_name').html(customar.fat_name);
             $('#rp_cus_phone').html(customar.phone+", "+customar.phone2);
+
+            if(refX != 0){
+                $('#rp_ref_name').html(refX.ref_name);
+                $('#rp_ref_f_name').html(refX.address+", "+refX.thana+", "+refX.zilla);
+                $('#rp_ref_add').html(refX.Father_Name);
+                $('#rp_ref_phone').html(refX.contact+", "+refX.contact2);
+            }
+
             //---------| Product information block |--------
             $('#rp_pro_name').html(product.product_name);
             $('#rp_pro_cc').html(product.bike_cc);
@@ -308,10 +386,9 @@ $(function(){
                 minlength: 11,
                 maxlength: 13
             },
-            cusFatName : {
-                required: true,
-                minlength: 2
-            }
+            cusAddThana : "required",
+            cusAddZilla : "required",
+            cusAddDivision : "required"
         }
     });
 
@@ -321,13 +398,13 @@ $(function(){
                 var status = JSON.parse(e);
                 if (status.error == 0 && status.success == 1) {
                     $('#form_addCustomar input,#form_addCustomar textarea').val('');
-                    Materialize.toast("Successfully Customar Added", 2000);
-                    $.get('/customer/'+status.id,function(e){
-                        sellX.setCustomar(e);
-                        $('#cus_name').html(e.first_name +" "+ e.last_name);
-                        $('#cus_email').html(e.fat_name);
-                        $('#cus_phone').html(e.phone);
-                    });
+                        Materialize.toast("Successfully Customar Added", 2000);
+                        $.get('/customer/'+status.id,function(e){
+                            sellX.setCustomar(e);
+                            $('#cus_name').html(e.first_name);
+                            $('#cus_email').html(e.fat_name);
+                            $('#cus_phone').html(e.phone);
+                        });
                 } else {
                     Materialize.toast("Sorry Submit Again Please", 2000);
                 }
