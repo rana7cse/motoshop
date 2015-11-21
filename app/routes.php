@@ -127,6 +127,10 @@ Route::group(array('before' => 'auth'), function() {
             'product'   => $product_info
         ];
 	});
+
+
+	//------------Daily Reports-------------
+	Route::get('/daily/sell/{date}','ReportsController@dailySells');
 });
 
 

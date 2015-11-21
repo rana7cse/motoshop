@@ -65,7 +65,10 @@ class ReportsController extends \BaseController {
 			->join('customars','moto_sold.cus_id','=','customars.id')
 			->join('inventory','moto_sold.inv_id','=','inventory.id')
 			->join('product','inventory.product_id','=','product.id')
-			->select('moto_sold.id','moto_sold.price','moto_sold.paid','inventory.eng_no','inventory.chs_no','moto_sold.due','moto_sold.sold_date','moto_sold.payment_status','customars.first_name','customars.last_name','product.product_name')
+			->select(
+					'moto_sold.id','moto_sold.price','moto_sold.paid','inventory.eng_no','inventory.chs_no',
+					'moto_sold.due','moto_sold.sold_date','moto_sold.payment_status','customars.first_name',
+					'product.product_name')
 			->whereBetween('sold_date',array($lastDay,$today))->get();
 		$kopa = [
 			'to' => $lastDay,
@@ -73,5 +76,40 @@ class ReportsController extends \BaseController {
 			'data' => $data
 		];
 		return View::make('report.sell',compact('kopa'));
+	}
+
+	public function dailySells($day){
+		$data = DB::table('moto_sold')
+				->join('customars','moto_sold.cus_id','=','customars.id')
+				->join('inventory','moto_sold.inv_id','=','inventory.id')
+				->join('product','inventory.product_id','=','product.id')
+				->select(
+						'moto_sold.id','moto_sold.vat','moto_sold.bank_int','moto_sold.price','moto_sold.total_billed','moto_sold.paid','inventory.eng_no',
+						'inventory.chs_no','moto_sold.due','moto_sold.sold_date','moto_sold.payment_status',
+						'customars.first_name','product.product_name')
+				->where('sold_date',$day)->get();
+
+		$sum = DB::table('moto_sold')
+				->join('customars','moto_sold.cus_id','=','customars.id')
+				->join('inventory','moto_sold.inv_id','=','inventory.id')
+				->join('product','inventory.product_id','=','product.id')
+				->where('sold_date',$day)->first(
+						array(
+								DB::raw('SUM(moto_sold.vat) as vat'),
+								DB::raw('SUM(moto_sold.bank_int) as bank'),
+								DB::raw('SUM(moto_sold.price) as price'),
+								DB::raw('SUM(moto_sold.total_billed) as billed'),
+								DB::raw('SUM(moto_sold.paid) as paid'),
+								DB::raw('SUM(moto_sold.due) as due')
+						)
+				);
+
+		$info = [
+			'table_info' => $data,
+			'date' => $day,
+			'total' => $sum
+		];
+
+		return View::make('report_day.sell',compact('info'));
 	}
 }

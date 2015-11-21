@@ -77,7 +77,8 @@ class SellController extends \BaseController {
 					'paid' 			=> $sold->paid,
 					'interest'		=> 0,
 					'due_date' 		=> $sold->sold_date,
-					'comment' 		=> 'sold with cash'
+					'comment' 		=> 'sold with cash',
+					'transection_id' => 1,
 				];
 				$update = DB::table('inventory')->where('id','=',$sold->inv_id)
 					->update(['is_sell'=>'1']);
@@ -111,6 +112,7 @@ class SellController extends \BaseController {
 				'paid' 			=> $sold->paid,
 				'interest'		=> 0,
 				'due_date' 		=> $sold->sold_date,
+				'transection_id' => 1,
 				'comment' 		=> 'sold with due'
 			];
 			$loan = [

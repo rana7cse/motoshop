@@ -40,10 +40,27 @@
                 </div>
             </li>
             <li>
+                <div class="collapsible-header waves-effect"><i class="fa fa-area-chart"></i>Daily Report</div>
+                <div class="collapsible-body">
+                    <div class="collection">
+                        <?php
+                        $today = \Carbon\Carbon::now();
+                        $today = $today->year.'-'.$today->month.'-'.$today->day;
+                        ?>
+                        <a href="{{url('/daily/sell/'.$today)}}" class="collection-item">Payment Received<span class="badge"></span></a>
+                        <a href="{{url('/report/received')}}" class="collection-item">Cost Report<span class="badge"></span></a>
+                        <a href="{{url('/daily/sell/'.$today)}}" class="collection-item">Sell Report<span class="badge"></span></a>
+                        <a href="{{url('/report/buy')}}" class="collection-item">Buy Report<span class="badge"></span></a>
+                    </div>
+                </div>
+            </li>
+            <li>
                 <div class="collapsible-header waves-effect"><i class="fa fa-area-chart"></i> Reports</div>
                 <div class="collapsible-body">
                     <div class="collection">
-                        <a href="{{url('/report/inventory')}}" class="collection-item">Inventory Report<span class="badge"></span></a>
+                        <a href="{{url('/inventory/report/all')}}" class="collection-item">Invenroty Report
+                            <span class="badge new"><i class="fa fa-pencil-square-o"></i></span>
+                        </a>
                         <a href="{{url('/report/received')}}" class="collection-item">Payment Received<span class="badge"></span></a>
                         <a href="{{url('/report/sell')}}" class="collection-item">Sell Report<span class="badge"></span></a>
                         <a href="{{url('/report/buy')}}" class="collection-item">Buy Report<span class="badge"></span></a>

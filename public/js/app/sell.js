@@ -252,8 +252,7 @@ $(function(){
             data['is_due'] = sellX.isDue;
             data['ref_id'] = (sellX.referance.hasOwnProperty('id')) ? sellX.referance.id : 0;
             $.post('/sell/make',data,function(e){
-                console.log(e);
-                /*if(e.data == 0 && e.status == 0){
+                if(e.data == 0 && e.status == 0){
                     Materialize.toast(e.massage,2000);
                 } else if(e.data != 0 && e.status == 1){
                     $('#modal_product_sell').closeModal();
@@ -272,7 +271,7 @@ $(function(){
                     });
                 } else {
                     Materialize.toast('Something Wrong Please Contact Web Master',3000);
-                }*/
+                }
             });
         } else {
             Materialize.toast('You Already Paid Out',2000);
