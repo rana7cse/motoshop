@@ -43,8 +43,7 @@ class SellController extends \BaseController {
 	public function create()
 	{
 		$input = Input::all();
-		print_r($input);
-		/*$dateX = \Carbon\Carbon::now();
+		$dateX = \Carbon\Carbon::now();
 		$p_status = $input['payment_status'];
 		$data = [
 			'price'				=>	$input['frm_payable'],
@@ -58,11 +57,12 @@ class SellController extends \BaseController {
 			'sold_date' 		=>	$dateX->year."-".$dateX->month."-".$dateX->day,
 			'vat' 				=> $input['frm_payVat'],
 			'bank_int'			=> $input['frm_payInt'],
-			'total_billed'		=> $input['total_bill']
+			'total_billed'		=> $input['total_bill'],
+			'ref_id'			=> $input['ref_id']
 
-		];*/
+		];
 
-		/*if($p_status == 'cash'){
+		if($p_status == 'cash'){
 			if($data['due'] != 0){
 				return [
 					'data' => 0,
@@ -147,7 +147,7 @@ class SellController extends \BaseController {
 				'massage' => 'Success to payment',
 				'status' => 1
 			];
-		}*/
+		}
 	}
 
 
