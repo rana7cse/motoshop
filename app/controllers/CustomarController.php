@@ -118,5 +118,74 @@ class CustomarController extends \BaseController {
 		}
 	}
 
+	public function searchIndex(){
+		$cus_info = DB::table('customars')->select('id','first_name','phone')->get();
+		$thana_info = DB::table('customars')->select('thana')->distinct()->get();
+		$ref_info = DB::table('referance')->select('id','ref_name','contact')->get();
+
+		$data =[
+			"cus" => $cus_info,
+			"thana"	=> $thana_info,
+			"ref"	=> $ref_info
+		];
+
+		return View::make("customars.search",compact("data"));
+	}
+
+
+	public function doSearch(){
+		$input = Input::all();
+		$text = $input['text'];
+		$op = [];
+		switch($input['by']){
+			case 1 :
+				$op = DB::table('customars')
+						->where('first_name','like',"%$text%")
+						->select('id','first_name','fat_name','address','thana','zilla','phone')
+						->get();
+				break;
+			case 2 :
+				$op = DB::table('customars')
+						->where('phone','like',"%$text%")
+						->orWhere('phone2','like',"%$text%")
+						->select('id','first_name','fat_name','address','thana','zilla','phone')
+						->get();
+				break;
+			case 3 :
+				$op = DB::table('customars')
+						->where('thana','like',"%$text%")
+						->select('id','first_name','fat_name','address','thana','zilla','phone')
+						->get();
+				break;
+			case 4 :
+				$op = DB::table('customars')
+						->join('moto_sold','moto_sold.cus_id','=','customars.id')
+						->join('referance','moto_sold.ref_id','=','referance.id')
+						->where('referance.ref_name','like',"%$text%")
+						->select('customars.id','customars.first_name','customars.fat_name','customars.address','customars.thana','customars.zilla','customars.phone')
+						->get();
+				break;
+			case 5 :
+				$op = DB::table('customars')
+						->join('moto_sold','moto_sold.cus_id','=','customars.id')
+						->join('referance','moto_sold.ref_id','=','referance.id')
+						->where('referance.contact','like',"%$text%")
+						->orWhere('referance.contact2','like',"%$text%")
+						->select('customars.id','customars.first_name','customars.fat_name','customars.address','customars.thana','customars.zilla','customars.phone')
+						->get();
+				break;
+			default :
+				$op = [];
+		}
+
+		return ["data" => $op];
+	}
+
+	// All Customar Information Here
+
+	public function getState($id){
+		echo $id;
+	}
+
 
 }

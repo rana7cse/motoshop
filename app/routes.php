@@ -131,6 +131,13 @@ Route::group(array('before' => 'auth'), function() {
 
 	//------------Daily Reports-------------
 	Route::get('/daily/sell/{date}','ReportsController@dailySells');
+	Route::get('/daily/buy/{date}','ReportsController@dailyBuy');
+	Route::get('/daily/payment/{date}','ReportsController@dailyPayment');
+
+	//------- Customer Searching -------------
+	Route::get('/customar/search','CustomarController@searchIndex');
+	Route::post('/customar/doSearch','CustomarController@doSearch');
+	Route::get('/view/details/{id}','CustomarController@getState');
 });
 
 

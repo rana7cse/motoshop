@@ -47,10 +47,10 @@
                         $today = \Carbon\Carbon::now();
                         $today = $today->year.'-'.$today->month.'-'.$today->day;
                         ?>
-                        <a href="{{url('/daily/sell/'.$today)}}" class="collection-item">Payment Received<span class="badge"></span></a>
-                        <a href="{{url('/report/received')}}" class="collection-item">Cost Report<span class="badge"></span></a>
+                        <a href="{{url('/daily/payment/'.$today)}}" class="collection-item">Payment Received<span class="badge"></span></a>
+                        <a href="#" class="collection-item">Cost Report<span class="badge"></span></a>
                         <a href="{{url('/daily/sell/'.$today)}}" class="collection-item">Sell Report<span class="badge"></span></a>
-                        <a href="{{url('/report/buy')}}" class="collection-item">Buy Report<span class="badge"></span></a>
+                        <a href="{{url('/daily/buy/'.$today)}}" class="collection-item">Buy Report<span class="badge"></span></a>
                     </div>
                 </div>
             </li>
@@ -73,6 +73,8 @@
                     <div class="collection">
                         <a href="{{url('/customars')}}" class="collection-item">Manage Customer<span class="new badge">+</span></a>
                         <a href="{{url('/suppliers')}}" class="collection-item">Manage Suppliers<span class="new badge">+</span></a>
+                        <hr>
+                        <a href="{{url('/customar/search')}}" class="collection-item">Search Customer</a>
                     </div>
                 </div>
             </li>

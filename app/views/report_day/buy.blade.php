@@ -8,55 +8,64 @@
         </div>
         <div class="sectionX product_start">
             <div id="listProduct" class="tab_panel">
-                <div class="title">List Of All Buying Info <b>{{$kopa['to']}}</b> to <b>{{$kopa['form']}}</b></div>
+                <div class="title">List Of Buy List : {{$data['date']}} [<b> Total Billed: {{$data['total']}} ]</b> </div>
                 <div class="reportTableWrapper" id="reportTableWrapper">
-                    <h3 class="title" style="display: none">All Buying Product <b>{{$kopa['to']}}</b> to <b>{{$kopa['form']}}</b></h3>
-                    <a class="print_hide btn btn-add" style="display: none" href="{{url('/report/buy')}}">Back</a>
                     <div class="header_filer print_hide">
-                        <form action="{{url('/report/buy')}}" method="post" class="row">
+                        <form action="#" method="get" class="row">
                             <div class="col s4 input-field">
-                                <input placeholder="Form Date" id="sellFilterTOdate" name="form" type="text" class="validate">
-                                <label for="first_name">Form Date :</label>
+                                <input placeholder="Form Date" id="sellFilterTOdate" value="{{$data['date']}}" name="form" type="text" class="validate">
+                                <label for="first_name">Date :</label>
                             </div>
                             <div class="col s4 input-field">
-                                <input placeholder="To Date" name="to" id="sellFilterFormdate" type="text" class="validate">
-                                <label for="sellFilterFormdate">To Date :</label>
-                            </div>
-                            <div class="col s4 input-field">
-                                <button class="btn" type="submit" id="sellFilterBtn">Search</button>
+                                <a href="#" class="btn" id="btn_show_report">Show Report</a>
                             </div>
                         </form>
                     </div>
                     <table class="bordered striped" id="inventory_report">
                         <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Product</th>
-                                <th>Model</th>
-                                <th>Color</th>
-                                <th>Engine No</th>
-                                <th>Chases No</th>
-                                <th>Sell Rate</th>
-                            </tr>
+                        <tr>
+                            <th>SN</th>
+                            <th>Product Name</th>
+                            <th>Model</th>
+                            <th>Color</th>
+                            <th>CHS NO</th>
+                            <th>ENG NO</th>
+                            <th>Buy Rate</th>
+                            <th>Date</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach($kopa['data'] as $data)
+                        @if(count($data['all']))
+                            <?php $sn = 0 ?>
+                            @foreach($data['all'] as $buy)
                                 <tr>
-                                    <td>{{$data->id}}</td>
-                                    <td>{{$data->product_name}}</td>
-                                    <td>{{$data->model}}</td>
-                                    <td>{{$data->color}}</td>
-                                    <td>{{$data->eng_no}}</td>
-                                    <td>{{$data->chs_no}}</td>
-                                    <td>{{$data->sell_rate}}</td>
+                                    <td>{{++$sn}}</td>
+                                    <td>{{$buy->product_name}}</td>
+                                    <td>{{$buy->model}}</td>
+                                    <td>{{$buy->color}}</td>
+                                    <td>{{$buy->chs_no}}</td>
+                                    <td>{{$buy->eng_no}}</td>
+                                    <td>{{$buy->sell_rate}}</td>
+                                    <td><?php echo (explode(" ",$buy->created_at)[0]); ?> </td>
                                 </tr>
                             @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        var RootUrl = '{{url('/')}}';
+        $(function(){
+            $('#sellFilterTOdate').change(function(){
+                var urlX = RootUrl+"/daily/buy/"+$(this).val();
+                $('#btn_show_report').attr('href',urlX);
+                $('#sellFilterTOdate_root').close();
+            })
+        })
+    </script>
 @stop
 @section('page_script')
     <script src="{{asset('js/app/allReports.js')}}"></script>

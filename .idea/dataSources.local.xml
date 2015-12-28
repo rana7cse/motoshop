@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - hsc_result@localhost" uuid="6cf4757d-27f7-4878-8bda-51fbb7bea8df">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>hsc_result.*</schema-pattern>
+      <default-schemas>hsc_result.*</default-schemas>
+    </data-source>
+    <data-source name="MySQL - eshop@localhost" uuid="0b009e14-7af8-4fbe-bfa0-2436c61511f6">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>eshop.*</schema-pattern>
+      <default-schemas>eshop.*</default-schemas>
+    </data-source>
+  </component>
+</project>

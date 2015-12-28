@@ -112,4 +112,42 @@ class ReportsController extends \BaseController {
 
 		return View::make('report_day.sell',compact('info'));
 	}
+
+	function dailyBuy($day){
+		$all = DB::table('inventory')
+				->join('product','product.id','=','inventory.product_id')
+				->select('inventory.id','inventory.created_at','inventory.eng_no','inventory.chs_no','inventory.color','inventory.sell_rate','product.product_name','product.model')
+				->where('inventory.created_at',"like","%$day%")
+				->get();
+		$totalBuy = DB::table('inventory')
+				->where('created_at',"like","%$day%")
+				->sum('buy_rate');
+		$data = [
+			'all' => $all,
+			'total'	=> $totalBuy,
+			'date' => $day
+		];
+
+		return View::make('report_day.buy',compact("data"));
+	}
+
+
+	public function dailyPayment($day){
+		$all = DB::table('supplier_payment')
+				->join('supplier','supplier_payment.supplier_id','=','supplier.id')
+				->where('supplier_payment.date','like',$day)
+				->select('supplier_payment.id','supplier.supp_name','supplier_payment.order_id','supplier_payment.ammount','supplier_payment.date')
+				->get();
+
+
+		$data = [
+			'all' => $all,
+			'date' => $day,
+			'total' => DB::table('supplier_payment')
+					->where('supplier_payment.date','like',$day)
+					->sum('ammount')
+		];
+
+		return View::make('report_day.payment',compact("data"));
+	}
 }
