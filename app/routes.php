@@ -138,6 +138,11 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('/customar/search','CustomarController@searchIndex');
 	Route::post('/customar/doSearch','CustomarController@doSearch');
 	Route::get('/view/details/{id}','CustomarController@getState');
+
+	//privious_due
+	Route::post('/add_due','CustomarController@priviousDue');
+	Route::post('/add_due_paid','CustomarController@priviousDuePaid');
+	Route::post('/changeDate','CustomarController@changeDate');
 });
 
 

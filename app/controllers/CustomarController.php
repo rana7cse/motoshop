@@ -14,7 +14,7 @@ class CustomarController extends \BaseController {
 		foreach($all as $data){
 			$op[] = array(
 				"{$data->id}",
-				$data->first_name,
+				"<a href='/view/details/{$data->id}'>$data->first_name</a>",
 				$data->fat_name,
 				$data->thana,
 				$data->zilla,
@@ -184,7 +184,50 @@ class CustomarController extends \BaseController {
 	// All Customar Information Here
 
 	public function getState($id){
-		echo $id;
+		$cus = Customar::find($id);
+		return View::make('customars.view',compact('cus'));
+	}
+
+	public function priviousDue(){
+		$input = Input::all();
+		$insert = DB::table('privious_due')->insert(
+			array(
+				'cus_id' => $input['id'],
+				'rate'	=> $input['due']
+			)
+		);
+		if($input){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+
+	public function priviousDuePaid(){
+		$input = Input::all();
+		$insert = DB::table('privious_due_paid')->insert(
+			array(
+				'cus_id' => $input['id'],
+				'paid'	=> $input['due']
+			)
+		);
+		if($input){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+
+	public function changeDate(){
+		$input = Input::all();
+		$update = DB::table('car_loan')->where('id',$input['id'])->update(array(
+			'next_pay_date' => $input['date']
+		));
+		if($update){
+			return 1;
+		}else{
+			return 0;
+		}
 	}
 
 
